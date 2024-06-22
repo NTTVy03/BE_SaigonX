@@ -1,12 +1,22 @@
+require('dotenv').config();
+
 const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const authRoutes = require('./app/routes/auth.route.js');
 
 const app = express();
-const PORT = 3000;
 
-app.listen(PORT, (error) =>{
-    if(!error)
-        console.log("Server is Successfully Running, and App is listening on port "+ PORT)
-    else 
-        console.log("Error occurred, server can't start", error);
-    }
-);
+app.use(bodyParser.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use('/auth', authRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
