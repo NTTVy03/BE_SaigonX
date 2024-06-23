@@ -6,8 +6,11 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
   dialect: config.dialect,
 });
 
-const User = require('./user.model.js');
+const db = {};
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-sequelize.sync();
+// Add tables to database here
+db.users = require('./user.model.js')(sequelize, Sequelize);
 
-module.exports = { sequelize, User };
+module.exports = db;
