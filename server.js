@@ -1,21 +1,9 @@
 require('dotenv').config();
 
 const express = require('express');
-const session = require('express-session');
 
 const app = express();
-
-// Middleware configuration
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Express-session configuration
-app.use(session({
-    secret:  process.env.SESSION_SECRET, // Provide a secret key here
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } // Set secure to true if using HTTPS
-}));
 
 // ---------------------- DATABASE
 const db = require("./app/models");

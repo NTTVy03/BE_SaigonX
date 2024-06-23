@@ -1,5 +1,9 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models').users;
+
+require('dotenv').config();
+const SECRET_KEY = process.env.JWT_SECRET;
 
 exports.register = async (req, res) => {
   console.log("# Register API");
@@ -24,8 +28,11 @@ exports.login = async (req, res) => {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
-    req.session.userId = user.id;
-    res.json({ message: 'Login successful' });
+    const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '24h' });
+    res.json({ 
+      message: 'Login successful',
+      accessToken
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -33,8 +40,7 @@ exports.login = async (req, res) => {
 
 exports.logout = (req, res) => {
   console.log("# Logout API");
-  req.session.destroy(err => {
-    if (err) return res.status(500).json({ error: 'Failed to logout' });
-    res.json({ message: 'Logout successful' });
-  });
+  // Since we're not using refresh tokens or sessions, 
+  // logout is handled on the client side by removing the token
+  res.json({ message: 'Logout successful' });
 };
