@@ -1,3 +1,5 @@
 .env
 .sequelizerc
 node_modules/
+BackLog.md
+DBLog.md
