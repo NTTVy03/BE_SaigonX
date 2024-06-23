@@ -4,7 +4,7 @@
 * Install MySQL CLI
 * Create database manually with MySQL CLI:
     * `CREATE DATABASE SaigonX`
-    * Check if the SaigonX database created: `SHOW TABLES`
+    * Check if the SaigonX database created: `SHOW DATABASES`
 * Add `.env` in the root directory:
     ```
     DB_NAME="SaigonX"
