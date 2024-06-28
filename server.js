@@ -20,7 +20,10 @@ app.use(session({
 // ---------------------- DATABASE
 const db = require("./app/models");
 
-db.sequelize.sync()
+db.sequelize.sync({
+    force: true
+    // alter: true    // alter: true will update the table schema
+})
   .then(() => {
     console.log("Synced db.");
   })
