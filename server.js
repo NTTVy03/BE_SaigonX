@@ -14,6 +14,7 @@ db.sequelize.sync({
 })
   .then(() => {
     console.log("Synced db.");
+    initial();
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
@@ -40,31 +41,37 @@ app.listen(PORT, () => {
 });
 
 // // ---------------------- SAMPLE DATA
-// function initial() {
-//   // examle code to add data to category table
-//   const categoryData = [
-//     handcraft,
-//     Photography,
-//     Business,
-//     Data,
-//     Marketing,
-//     VideoAndAnimation,
-//     MusicAndAudio,
-//     ProgrammingAndTech,
-//     WritingAndTranslation,
-//     GraphicAndDesign
-//   ]
+function initial() {
+  // examle code to add data to category table
+  // const categoryData = [
+  //   handcraft,
+  //   Photography,
+  //   Business,
+  //   Data,
+  //   Marketing,
+  //   VideoAndAnimation,
+  //   MusicAndAudio,
+  //   ProgrammingAndTech,
+  //   WritingAndTranslation,
+  //   GraphicAndDesign
+  // ]
 
-//   const create_category = () => {
-//     categoryData.forEach((category) => {
-//       db.categories.create(
-//         category,
-//         { include: [ db.subcategories ] }
-//       );
-//     });
-//   }
+  // const create_category = () => {
+  //   categoryData.forEach((category) => {
+  //     db.categories.create(
+  //       category,
+  //       { include: [ db.subcategories ] }
+  //     );
+  //   });
+  // }
 
-//   create_category;
-// }
+  // create_category();
 
-// // initial();
+  const UserAccount = require("./app/models/UserAccount.model.js");
+  const UserInfo    = require("./app/models/UserInfo.model.js");
+
+  UserAccount.createDefaultSample(db[UserAccount.NAME]);
+  UserInfo.createDefaultSample(db[UserInfo.NAME]);
+}
+
+// initial();
