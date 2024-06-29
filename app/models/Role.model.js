@@ -4,6 +4,8 @@ module.exports = (sequelize, Sequelize) => {
     {
       // FK: [1] user_account -- [N] role
       role: {
+        // backend manage role like enum
+        // ex: "admin", "user",...
         type: Sequelize.STRING,
         allowNull: false,
       },

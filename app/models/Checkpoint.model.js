@@ -7,27 +7,12 @@ const createModel = (sequelize, Sequelize) => {
     
     // FK: [1] land -- [N] checkpoint NOT NULL
 
-    // FK: [1] checkpoint - [1] location NOT NULL
-
-    code: {
-        // ~ name
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-    },
     ordinal: {
         // index of checkpoint in land (1,2,3...)
         // how to check unique for a checkpoint in a land
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    jsonData: {
-        type: Sequelize.JSON
-    },
-    isActive: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-    }
   });
   
   return Checkpoint;

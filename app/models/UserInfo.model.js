@@ -2,7 +2,8 @@ exports.createModel = (sequelize, Sequelize) => {
   const UserInfo = sequelize.define(
     'user_info',
     {
-      // FK: [1] user_account -- [1] user_info
+      // FK: [1] user_account -- [1] user_info = PK
+      
       avatar: {
         type: Sequelize.STRING,
       },

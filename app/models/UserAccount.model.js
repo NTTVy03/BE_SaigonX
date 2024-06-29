@@ -16,9 +16,11 @@ const createModel = (sequelize, Sequelize) => {
       unique: true
     },
     fullName: {
+      // backend manage fullname setting
+      // default = username
       type: Sequelize.STRING,
       allowNull: false,
-      defaultValue: "user"
+      // defaultValue: "user"
     }
   });
   
