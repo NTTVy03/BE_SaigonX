@@ -18,8 +18,7 @@ const createModel = (sequelize, Sequelize) => {
     fullName: {
       type: Sequelize.STRING,
       allowNull: false,
-      // defaultValue: this.username,
-      // defaultValue: Sequelize.col('username'),
+      defaultValue: "user"
     }
   });
   

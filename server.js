@@ -20,12 +20,6 @@ db.sequelize.sync({
     console.log("Failed to sync db: " + err.message);
   });
 
-// uncomment to delete database
-// drop the table if it already exists 
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
-
 // ---------------------- ROUTES
 // simple route
 app.get("/", (req, res) => {
@@ -42,36 +36,26 @@ app.listen(PORT, () => {
 
 // // ---------------------- SAMPLE DATA
 function initial() {
-  // examle code to add data to category table
-  // const categoryData = [
-  //   handcraft,
-  //   Photography,
-  //   Business,
-  //   Data,
-  //   Marketing,
-  //   VideoAndAnimation,
-  //   MusicAndAudio,
-  //   ProgrammingAndTech,
-  //   WritingAndTranslation,
-  //   GraphicAndDesign
-  // ]
+  // ### Create sample data
+  // db.VStudent.create(
+  //   {
+  //     name: "Vy",
+  //     vstudent_card: {seri: "21120168"},
+  //   },
+  //   {
+  //     include: [db.VStudentCard]
+  //   }
+  // );
 
-  // const create_category = () => {
-  //   categoryData.forEach((category) => {
-  //     db.categories.create(
-  //       category,
-  //       { include: [ db.subcategories ] }
-  //     );
-  //   });
-  // }
-
-  // create_category();
+  // Sample object
+  db.Object.create({type: 'map'});
+  db.Object.create({type: 'checkpoint'});
+  db.Object.create({type: 'land'});
+  db.Object.create({type: 'map'});
 
   const UserAccount = require("./app/models/UserAccount.model.js");
   const UserInfo    = require("./app/models/UserInfo.model.js");
 
-  UserAccount.createDefaultSample(db[UserAccount.NAME]);
-  UserInfo.createDefaultSample(db[UserInfo.NAME]);
+  // UserAccount.createDefaultSample(db[UserAccount.NAME]);
+  // UserInfo.createDefaultSample(db[UserInfo.NAME]);
 }
-
-// initial();
