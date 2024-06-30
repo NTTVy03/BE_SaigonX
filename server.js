@@ -49,7 +49,7 @@ async function initial() {
   });
 
   const trietInfo = await db.UserInfo.create({
-    userId: trietAccount.id,
+    id: trietAccount.id,
     avatar: 'https://images.pexels.com/photos/25288209/pexels-photo-25288209/free-photo-of-a-building-with-two-windows-and-a-blue-sky.jpeg'
   });
 
@@ -72,7 +72,7 @@ async function initial() {
   });
 
   const phatInfo = await db.UserInfo.create({
-    userId: phatAccount.id,
+    id: phatAccount.id,
     avatar: 'https://images.pexels.com/photos/25288209/pexels-photo-25288209/free-photo-of-a-building-with-two-windows-and-a-blue-sky.jpeg'
   });
 
@@ -91,7 +91,8 @@ async function initial() {
     isActive: true,
   });
 
-   // #### Lands in Sai Gon Map
+  // #### Lands in Sai Gon Map
+  // LAND 1 & checkpoints:  
    const benthanhLand = await db.Object.create(
     {
       type: 'land',
@@ -103,6 +104,31 @@ async function initial() {
     }
   );
 
+  const benthanhCheckpoint1 = await db.Object.create(
+    {
+      type: 'checkpoint',
+      code: "Cua Dong",
+      isActive: true,
+    },
+    {
+      landId: benthanhLand.id,
+      ordinal: 1,
+    }
+  );
+
+  const benthanhCheckpoint2 = await db.Object.create(
+    {
+      type: 'checkpoint',
+      code: "Cua Tay",
+      isActive: true,
+    },
+    {
+      landId: benthanhLand.id,
+      ordinal: 2,
+    }
+  );
+
+  // LAND 2 & checkpoints:  
   const dinhdoclapLand = await db.Object.create(
     {
       type: 'land',
@@ -113,4 +139,41 @@ async function initial() {
       mapId: sgMap.id
     }
   )
+
+  const dinhdoclapCheckpoint1 = await db.Object.create(
+    {
+      type: 'checkpoint',
+      code: "Phong hop noi cac",
+      isActive: true,
+    },
+    {
+      landId: dinhdoclapLand.id,
+      ordinal: 1,
+    }
+  );
+
+  const dinhdoclapCheckpoint2 = await db.Object.create(
+    {
+      type: 'checkpoint',
+      code: "Phong tiep khach",
+      isActive: true,
+    },
+    {
+      landId: dinhdoclapLand.id,
+      ordinal: 2,
+    }
+  );
+
+  const dinhdoclapCheckpoint3 = await db.Object.create(
+    {
+      type: 'checkpoint',
+      code: "Phong dai yen",
+      isActive: true,
+    },
+    {
+      landId: dinhdoclapLand.id,
+      ordinal: 3,
+    }
+  );
+
 }

@@ -6,7 +6,7 @@ const createModel = (sequelize, Sequelize) => {
 
     // FK: [N] asset - [N] object
 
-    // typeId: { typeId = objectId
+    // typeId: { typeId = id
     //   // [1] map/land/checkpoint - [1] object
     //   // value get from map/land/checkpoint TRIGGER
     //   type: Sequelize.INTEGER,

@@ -6,7 +6,7 @@ const createModel = (sequelize, Sequelize) => {
   const Land = sequelize.define(
     'land', 
     {
-      objectId: {
+      id: {
         // [DONE] PK = FK: [1] land -- [1] object 
         type: Sequelize.INTEGER,
         primaryKey: true,

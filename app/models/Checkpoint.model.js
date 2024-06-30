@@ -4,10 +4,10 @@ const createModel = (sequelize, Sequelize) => {
   const Object = require("./Object.model").createModel(sequelize,Sequelize);
 
   const Checkpoint = sequelize.define('checkpoint', {
-    // FK: [1] land -- [N] checkpoint NOT NULL
+    // [DONE] FK: [1] land -- [N] checkpoint NOT NULL
 
-    objectId: {
-      // PK = FK: [1] checkpoint -- [1] object 
+    id: {
+      // [DONE] PK = FK: [1] checkpoint -- [1] object 
       type: Sequelize.INTEGER,
       primaryKey: true,
       references: {

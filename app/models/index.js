@@ -28,13 +28,13 @@ db.PlayerMapData  = require('./PlayerMapData.model.js').createModel(sequelize, S
 
 // [1] user_account -- [1] user_info
 db.UserAccount.hasOne(db.UserInfo, { 
-  foreignKey: 'userId',
+  foreignKey: 'id',
   allowNull: false,
   // onDelete: 'RESTRICT',
   // onUpdate: 'RESTRICT',
 });
 db.UserInfo.belongsTo(db.UserAccount, { 
-  foreignKey: 'userId', // must define in both tables
+  foreignKey: 'id', // must define in both tables
 });
 
 // [1] user_account -- [N] role
@@ -53,27 +53,27 @@ db.Role.belongsTo(db.UserAccount, {
 // [1] map -- [1] object 
 db.Object.hasOne(db.Map, { 
   foreignKey: {
-    name: 'objectId',
+    name: 'id',
     allowNull: false,
   }
   // onDelete: 'RESTRICT',
   // onUpdate: 'RESTRICT',
 });
 db.Map.belongsTo(db.Object, { 
-  foreignKey: 'objectId',
+  foreignKey: 'id',
 });
 
 // [1] land -- [1] object 
 db.Object.hasOne(db.Land, { 
   foreignKey: {
-    name: 'objectId',
+    name: 'id',
     allowNull: false,
   }
   // onDelete: 'RESTRICT',
   // onUpdate: 'RESTRICT',
 });
 db.Land.belongsTo(db.Object, { 
-  foreignKey: 'objectId',
+  foreignKey: 'id',
 });
 
 // [1] map -- [N] land 
@@ -87,27 +87,51 @@ db.Land.belongsTo(db.Map, {
   foreignKey: 'mapId',
 });
 
+// [1] checkpoint -- [1] object 
+db.Object.hasOne(db.Checkpoint, { 
+  foreignKey: {
+    name: 'id',
+    allowNull: false,
+  }
+  // onDelete: 'RESTRICT',
+  // onUpdate: 'RESTRICT',
+});
+db.Checkpoint.belongsTo(db.Object, { 
+  foreignKey: 'id',
+});
+
+// [1] land -- [N] checkpoint
+db.Land.hasMany(db.Checkpoint, {
+  allowNull: false,
+  foreignKey: 'landId',
+  // onDelete: 'RESTRICT',
+  // onUpdate: 'RESTRICT',
+});
+db.Checkpoint.belongsTo(db.Land, {
+  foreignKey: 'landId',
+});
+
 // --------------------- TRIGGER
 
 // Create map/land/checkpoint follow an object
 db.Object.addHook('afterCreate',  async (object, options) => {
-  console.log(".options");
-  console.log(options);
-  console.log(".");
+  // console.log(".options");
+  // console.log(options);
+  // console.log(".");
 
   const type = object.dataValues['type'];
 
   switch (type) {
     case 'map': {
       await db.Map.create({
-        objectId: object.id,
+        id: object.id,
       });
 
       break;
     }
     case 'land': {
       await db.Land.create({
-        objectId: object.id,
+        id: object.id,
         mapId: options.mapId,
       });
 
@@ -115,7 +139,8 @@ db.Object.addHook('afterCreate',  async (object, options) => {
     }
     case 'checkpoint': {
       await db.Checkpoint.create({
-        objectId: object.id,
+        id: object.id,
+        landId: options.landId,
         ordinal: options.ordinal,
       });
 
@@ -132,11 +157,11 @@ db.Land.addHook('afterCreate', async (land, options) => {
 
   if (map === null) {
     // return error Map not found
-    console.log("Map with id={} not found", mapId);
+    console.log("Map with id= {} not found", mapId);
   }
   else {
     map.increment('num_land');
-    console.log("NUM LAND = {}", map.num_land);
+    // console.log("NUM LAND = {}", map.num_land);
   }
 },);
 

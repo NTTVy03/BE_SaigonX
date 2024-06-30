@@ -5,8 +5,8 @@ exports.createModel = (sequelize, Sequelize) => {
   const UserInfo = sequelize.define(
     'user_info',
     {
-      userId: {
-        // [DONE] PK = FK(userId): [1] user_account -- [1] user_info
+      id: {
+        // [DONE] PK = FK(id): [1] user_account -- [1] user_info
         type: Sequelize.INTEGER,
         primaryKey: true,
         references: {

@@ -12,8 +12,8 @@ const authenticateJWT = (req, res, next) => {
         return res.sendStatus(403);
       }
       req.userId = userId;
-      console.log("authenticateJWT --> passed")
-      console.log(req.userId)
+      // console.log("authenticateJWT --> passed")
+      // console.log(req.userId)
       next();
     });
   } else {

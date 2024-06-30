@@ -5,7 +5,7 @@ const createModel = (sequelize, Sequelize) => {
 
   const Map = sequelize.define('map', 
     {
-      objectId: {
+      id: {
         // [DONE] PK = FK: [1] map -- [1] object 
         type: Sequelize.INTEGER,
         primaryKey: true,
