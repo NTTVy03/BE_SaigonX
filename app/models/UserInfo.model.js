@@ -1,9 +1,19 @@
+
 exports.createModel = (sequelize, Sequelize) => {
+  const UserAccount = require('./UserAccount.model.js' ).createModel(sequelize, Sequelize);
+  
   const UserInfo = sequelize.define(
     'user_info',
     {
-      // FK: [1] user_account -- [1] user_info = PK
-      
+      userId: {
+        // [DONE] PK = FK(userId): [1] user_account -- [1] user_info
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        references: {
+          model: UserAccount,
+          key: 'id'
+        }
+      },
       avatar: {
         type: Sequelize.STRING,
       },

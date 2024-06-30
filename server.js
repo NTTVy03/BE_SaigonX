@@ -34,28 +34,83 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// // ---------------------- SAMPLE DATA
-function initial() {
-  // ### Create sample data
-  // db.VStudent.create(
-  //   {
-  //     name: "Vy",
-  //     vstudent_card: {seri: "21120168"},
-  //   },
-  //   {
-  //     include: [db.VStudentCard]
-  //   }
-  // );
+// ---------------------- SAMPLE DATA
+const bcrypt = require('bcryptjs');
 
-  // Sample object
-  db.Object.create({type: 'map'});
-  db.Object.create({type: 'checkpoint'});
-  db.Object.create({type: 'land'});
-  db.Object.create({type: 'map'});
+async function initial() {
+  // ---------------------------------------------------------
+  // USER ACCOUNT & INFO & ROLE
 
-  const UserAccount = require("./app/models/UserAccount.model.js");
-  const UserInfo    = require("./app/models/UserInfo.model.js");
+  // #### Acount 1: Triet
+  const trietAccount = await db.UserAccount.create({
+    username: 'TrietHuynh',
+    password: await bcrypt.hash('1234567890', 10),
+    fullName: 'Huynh Cong Triet'
+  });
 
-  // UserAccount.createDefaultSample(db[UserAccount.NAME]);
-  // UserInfo.createDefaultSample(db[UserInfo.NAME]);
+  const trietInfo = await db.UserInfo.create({
+    userId: trietAccount.id,
+    avatar: 'https://images.pexels.com/photos/25288209/pexels-photo-25288209/free-photo-of-a-building-with-two-windows-and-a-blue-sky.jpeg'
+  });
+
+  const trietRole1 = await db.Role.create({
+    userId: trietAccount.id,
+    role: 'user',
+  })
+
+  const trietRole2 = await db.Role.create({
+    userId: trietAccount.id,
+    role: 'admin',
+  })
+
+  // #### Acount 2: Phat
+  const phatAccount = await db.UserAccount.create({
+    username: 'PhatCao',
+    password: await bcrypt.hash('1234567890', 10),
+    fullName: 'Cao Quang Phat',
+    email: 'quangphat18ti@gmail.com'
+  });
+
+  const phatInfo = await db.UserInfo.create({
+    userId: phatAccount.id,
+    avatar: 'https://images.pexels.com/photos/25288209/pexels-photo-25288209/free-photo-of-a-building-with-two-windows-and-a-blue-sky.jpeg'
+  });
+
+  const phatRole = await db.Role.create({
+    userId: phatAccount.id,
+    role: 'user',
+  });
+
+  // ---------------------------------------------------------
+  // MAP & LAND & CHECKPOINT
+  
+  // #### Sai Gon Map
+  const sgMap = await db.Object.create({
+    type: 'map',
+    code: "Sai Gon Map",
+    isActive: true,
+  });
+
+   // #### Lands in Sai Gon Map
+   const benthanhLand = await db.Object.create(
+    {
+      type: 'land',
+      code: "Cho Ben Thanh",
+      isActive: true,
+    },
+    {
+      mapId: sgMap.id
+    }
+  );
+
+  const dinhdoclapLand = await db.Object.create(
+    {
+      type: 'land',
+      code: "Dinh Doc Lap",
+      isActive: true,
+    },
+    {
+      mapId: sgMap.id
+    }
+  )
 }

@@ -1,15 +1,25 @@
 const NAME = "Map";
 
 const createModel = (sequelize, Sequelize) => {
-  const Map = sequelize.define('map', {
-    // FK: [1] map -- [1] object 
-    // TRIGGER to create object with type 'map' --> hook: beforeCreate
+  const Object = require("./Object.model").createModel(sequelize,Sequelize);
 
-    num_land: {
+  const Map = sequelize.define('map', 
+    {
+      objectId: {
+        // [DONE] PK = FK: [1] map -- [1] object 
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        references: {
+          model: Object,
+          key: 'id'
+        }
+      }, 
+      num_land: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+      },
     },
-  });
+  );
   
   return Map;
 };
