@@ -1,7 +1,7 @@
 const NAME = "Land";
 
 const createModel = (sequelize, Sequelize) => {
-  const Map    = require('./Map.model.js' ).createModel(sequelize, Sequelize);
+  // const Map    = require('./Map.model.js' ).createModel(sequelize, Sequelize);
   
   const Land = sequelize.define(
     'land', 

@@ -1,9 +1,7 @@
 const NAME = "Asset";
 
 const createModel = (sequelize, Sequelize) => {
-  const Asset = sequelize.define('asset', {
-    // FK(id): [N] object -- [N] asset
-    // which is the through table???
+  const Asset = sequelize.define('asset', {    
     src: {
         type: Sequelize.STRING,
         allowNull: false,

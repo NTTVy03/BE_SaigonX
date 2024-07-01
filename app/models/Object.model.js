@@ -5,8 +5,10 @@ const createModel = (sequelize, Sequelize) => {
     // FK: [1] object - [1] location NOT NULL
 
     // FK: [N] asset - [N] object
-
-    // typeId: { typeId = id
+    // which is the through table???
+    
+    // typeId = id --> unuse field
+    // typeId: { 
     //   // [1] map/land/checkpoint - [1] object
     //   // value get from map/land/checkpoint TRIGGER
     //   type: Sequelize.INTEGER,
