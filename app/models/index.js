@@ -21,6 +21,7 @@ db.Map            = require('./Map.model.js'          ).createModel(sequelize, S
 db.Land           = require('./Land.model.js'         ).createModel(sequelize, Sequelize);
 db.Checkpoint     = require('./Checkpoint.model.js'   ).createModel(sequelize, Sequelize);
 db.Location       = require('./Location.model.js'     ).createModel(sequelize, Sequelize);
+db.Player         = require('./Player.model.js'       ).createModel(sequelize, Sequelize);
 db.PlayerMapOpen  = require('./PlayerMapOpen.model.js').createModel(sequelize, Sequelize);
 db.PlayerMapData  = require('./PlayerMapData.model.js').createModel(sequelize, Sequelize);
 
@@ -48,6 +49,19 @@ db.UserAccount.hasMany(db.Role, {
 });
 db.Role.belongsTo(db.UserAccount, { 
   foreignKey: 'userId',
+});
+
+// [1] user_account -- [1] player
+db.UserAccount.hasOne(db.Player, {
+  foreignKey: {
+    name: 'id',
+    allowNull: false,
+  }
+  // onDelete: 'RESTRICT',
+  // onUpdate: 'RESTRICT',
+});
+db.Player.belongsTo(db.UserAccount, {
+  foreignKey: 'id',
 });
 
 // [1] map -- [1] object 
@@ -121,6 +135,14 @@ db.Object.hasOne(db.Location, {
 db.Location.belongsTo(db.Object, {
   foreignKey: 'id',
 });
+
+// [N] player - [N] map
+db.Player.belongsToMany(db.Map, { through: db.PlayerMapOpen });
+db.Map.belongsToMany(db.Player, { through: db.PlayerMapOpen });
+db.Map.hasMany(db.PlayerMapOpen);
+db.PlayerMapOpen.belongsTo(db.Map);
+db.Player.hasMany(db.PlayerMapOpen);
+db.PlayerMapOpen.belongsTo(db.Player);
 
 // --------------------- TRIGGER
 

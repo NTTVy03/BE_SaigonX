@@ -7,15 +7,15 @@ const createModel = (sequelize, Sequelize) => {
     // FK: [N] player -- [N] map
     isPassed: {
         type: Sequelize.BOOLEAN,
-        default: false,
-        allowNull: false,
+        defaultValue: false,
+        allowNull: false
     },
     process: {
         // number of passed lands
         // TRIGGER to increase process when player pass a land
         type: Sequelize.INTEGER,
-        default: 0,
-        allowNull: false,
+        defaultValue: 0,
+        allowNull: false
     },
     jsonData: {
         type: Sequelize.JSON
@@ -23,8 +23,8 @@ const createModel = (sequelize, Sequelize) => {
     isActive: {
         // False if user is banned
         type: Sequelize.BOOLEAN,
-        default: true,
-        allowNull: false,
+        defaultValue: true,
+        allowNull: false
     },
   });
   

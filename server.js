@@ -39,7 +39,7 @@ const bcrypt = require('bcryptjs');
 
 async function initial() {
   // ---------------------------------------------------------
-  // USER ACCOUNT & INFO & ROLE
+  // USER ACCOUNT & INFO & ROLE & PLAYER
 
   // #### Acount 1: Triet
   const trietAccount = await db.UserAccount.create({
@@ -63,6 +63,10 @@ async function initial() {
     role: 'admin',
   })
 
+  const trietPlayer = await db.Player.create({
+    id: trietAccount.id,
+  })
+
   // #### Acount 2: Phat
   const phatAccount = await db.UserAccount.create({
     username: 'PhatCao',
@@ -80,6 +84,10 @@ async function initial() {
     userId: phatAccount.id,
     role: 'user',
   });
+
+  const phatPlayer = await db.Player.create({
+    id: phatAccount.id,
+  })
 
   // ---------------------------------------------------------
   // MAP & LAND & CHECKPOINT
@@ -237,4 +245,16 @@ async function initial() {
       description: "this (lat,lng) is not correct",
     }
   });
+
+  // ---------------------------------------------------------
+  // PLAYER_MAP_OPENS
+  const trietPlayerMap = await db.PlayerMapOpen.create({
+    playerId: trietAccount.id,
+    mapId: sgMap.id,
+  });
+
+  const phatPlayerMap = await db.PlayerMapOpen.create({
+    playerId: phatAccount.id,
+    mapId: sgMap.id,
+  })
 }
