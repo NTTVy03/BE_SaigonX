@@ -111,6 +111,17 @@ db.Checkpoint.belongsTo(db.Land, {
   foreignKey: 'landId',
 });
 
+// [1] location -- [1] object
+db.Object.hasOne(db.Location, {
+  allowNull: false,
+  foreignKey: 'id',
+  // onDelete: 'RESTRICT',
+  // onUpdate: 'RESTRICT',
+});
+db.Location.belongsTo(db.Object, {
+  foreignKey: 'id',
+});
+
 // --------------------- TRIGGER
 
 // Create map/land/checkpoint follow an object
