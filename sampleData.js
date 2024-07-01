@@ -142,6 +142,13 @@ async function initialSampleData() {
       ordinal: 3,
     }
   );
+
+  // ------------------------------------------------------------
+  const haNoiMap = await db.Object.create({
+    type: 'map',
+    code: "Ha Noi Map",
+    isActive: false,
+  });
 }
 
 module.exports = initialSampleData;
