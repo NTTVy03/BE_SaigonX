@@ -2,7 +2,7 @@ const NAME = "Object";
 
 const createModel = (sequelize, Sequelize) => {
   const Object = sequelize.define('object', {
-    // FK: [N] asset - [N] object
+    // [DONE] FK: [N] asset - [N] object
     // which is the through table???
     
     // typeId = id --> unuse field
