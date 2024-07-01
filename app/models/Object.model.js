@@ -2,8 +2,6 @@ const NAME = "Object";
 
 const createModel = (sequelize, Sequelize) => {
   const Object = sequelize.define('object', {
-    // FK: [1] object - [1] location NOT NULL
-
     // FK: [N] asset - [N] object
     // which is the through table???
     
