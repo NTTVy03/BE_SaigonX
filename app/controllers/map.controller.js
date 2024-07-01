@@ -1,9 +1,11 @@
 const { where } = require('sequelize');
-const db     = require('../models');
-const Map    = db.Map;
-const Object = db.Object;
-const Land   = db.Land;
-const Result = db.Result; 
+const db        = require('../models');
+const Map       = db.Map;
+const Object    = db.Object;
+const Land      = db.Land;
+const Location  = db.Location;
+const Asset     = db.Asset;
+const Result    = db.Result; 
 
 /**
  * Return map[] with isActive = true
@@ -64,18 +66,28 @@ const getMapById = async (req, res) => {
             {
                 model: Object,
                 as: 'object',
+                include: [
+                  {
+                    model: Location, 
+                    as: 'location'
+                  },
+                  // {
+                  //   model: Asset,
+                  //   as: 'assets',
+                  // }
+                ]
             },
             {
                 model: Land,
                 as: 'lands',
                 include: {
                   model: Object, 
-                  as: 'object'
+                  as: 'object',
+                  include: {
+                    model: Location,
+                    as: 'location'
+                  }
                 }
-            },
-            {
-              model: Location,
-              as: 'location',
             }
           ]
         })
@@ -95,7 +107,10 @@ const getMapById = async (req, res) => {
 }
 
 const getUserMapsOpen = (req, res) => {
+  console.log("# Get user maps open")
+  const userId = req.userId;
 
+  
 }
 
 const getUserMapDetail = (req, res) => {
