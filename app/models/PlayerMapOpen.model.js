@@ -4,7 +4,7 @@ const NAME = "PlayerMapOpen";
 // between Player and Map (isActive = true)
 const createModel = (sequelize, Sequelize) => {
   const PlayerMapOpen = sequelize.define('player_map_open', {
-    // FK: [N] player -- [N] map
+    // [DONE] FK: [N] player -- [N] map
     isPassed: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

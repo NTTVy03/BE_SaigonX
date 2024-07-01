@@ -136,13 +136,17 @@ db.Location.belongsTo(db.Object, {
   foreignKey: 'id',
 });
 
-// [N] player - [N] map
+// [N] player - [N] map 
 db.Player.belongsToMany(db.Map, { through: db.PlayerMapOpen });
 db.Map.belongsToMany(db.Player, { through: db.PlayerMapOpen });
 db.Map.hasMany(db.PlayerMapOpen);
 db.PlayerMapOpen.belongsTo(db.Map);
 db.Player.hasMany(db.PlayerMapOpen);
 db.PlayerMapOpen.belongsTo(db.Player);
+
+// [N] object -- [N] asset --> object_assets(assetId, objectId)
+db.Asset.belongsToMany(db.Object, {through: "object_assets"}); 
+db.Object.belongsToMany(db.Asset, {through: "object_assets"});
 
 // --------------------- TRIGGER
 

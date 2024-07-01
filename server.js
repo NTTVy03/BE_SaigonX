@@ -248,6 +248,7 @@ async function initial() {
 
   // ---------------------------------------------------------
   // PLAYER_MAP_OPENS
+
   const trietPlayerMap = await db.PlayerMapOpen.create({
     playerId: trietAccount.id,
     mapId: sgMap.id,
@@ -257,4 +258,42 @@ async function initial() {
     playerId: phatAccount.id,
     mapId: sgMap.id,
   })
+
+  // ---------------------------------------------------------
+  // ASSET & OBJECT_ASSETS
+  const asset1 = await db.Asset.create({
+    type: 'image', // 'video'
+    src: "https://shorturl.at/vIdI8"
+  });
+
+  const asset2 = await db.Asset.create({
+    type: 'image', // 'video'
+    src: "https://shorturl.at/vIdI8"
+  });
+
+  const asset3 = await db.Asset.create({
+    type: 'video',
+    src: "https://i.pinimg.com/originals/70/fb/17/70fb17b1b4fa1c35a3e9a552babdfef5.gif"
+  });
+
+  const asset4 = await db.Asset.create({
+    type: 'video',
+    src: "https://i.pinimg.com/originals/70/fb/17/70fb17b1b4fa1c35a3e9a552babdfef5.gif"
+  });
+
+  // add object asset here
+  sgMap.addAsset(asset1);
+  
+  benthanhLand.addAsset(asset2);
+  benthanhLand.addAsset(asset3);
+
+  // benthanhCheckpoint1.addAsset(...);
+  // benthanhCheckpoint2.addAsset(...);
+
+  dinhdoclapLand.addAsset(asset1);
+
+  dinhdoclapCheckpoint1.addAsset(asset4);
+  // dinhdoclapCheckpoint2.addAsset(...);
+  // dinhdoclapCheckpoint3.addAsset(...);
+  
 }
