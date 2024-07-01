@@ -9,7 +9,7 @@ const initialSampleData = require('./sampleData');
 
 const app = express();
 app.use(express.json());
-app.use(cors({}))
+// app.use(cors({}))
 
 // ---------------------- DATABASE
 db.sequelize.sync({
@@ -29,8 +29,12 @@ db.sequelize.sync({
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to SaigonX Back-end." });
 });
-require("./app/routes/auth.route")(app); // auth route
 
+const authRouter = require("./app/routes/auth.route"); // /api/auth
+app.use("/api/auth", authRouter);
+
+const mapRouter = require("./app/routes/map.route"); // /api/map
+app.use("/api/map", mapRouter);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
