@@ -1,0 +1,4 @@
+### Get All Maps
+GET http://localhost:3000/api/map
+
+### Get Map by ID
