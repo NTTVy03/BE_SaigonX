@@ -13,7 +13,7 @@
     DB_HOST="localhost"
     DB_DIALECT="mysql"
     PORT="3000"
-    SESSION_SECRET="your_secret_key"
+    JWT_SECRET="your_secret_key"
     ```
 * Install all required modules: `npm install`
 * Run backend server: `npm start`
