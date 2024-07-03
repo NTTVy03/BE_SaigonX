@@ -20,12 +20,19 @@ exports.register = async (req, res) => {
       fullName: (fullName ? fullName : username)
     };
 
-    await UserAccount.create(user);
+    let userAccount = await UserAccount.create(user);
+    userAccount = userAccount.dataValues;
+    delete userAccount.password;
 
     res.status(201).json({
-      message: "Register success"
+      message: "Register success",
+      data: userAccount
     });
   } catch (error) {
+    console.log(">>>> error: ", error);
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ error: 'Username already exists' });
+    }
     res.status(400).json({ error: error.message });
   }
 };
@@ -33,6 +40,8 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   console.log("# Login API");
   const { username, password } = req.body;
+  console.log("username: ", username);
+  console.log("password: ", password)
   try {
     const user = await UserAccount.findOne({ where: { username } });
     if (!user || !(await bcrypt.compare(password, user.password))) {

@@ -158,6 +158,13 @@ async function initialSampleData() {
     isActive: false,
   });
 
+    // ------------------------------------------------------------
+    const dalatMap = await db.Object.create({
+      type: 'map',
+      code: "Da Lat Map",
+      isActive: true,
+    });
+
   // ---------------------------------------------------------
   // LOCATION
 
@@ -220,19 +227,44 @@ async function initialSampleData() {
     }
   });
 
+// ---------------------------------------------------------
+// PLAYER_Map_OPENS
+const trietPlayerMapSaigon = await db.PlayerMapOpen.create({
+  playerId: trietAccount.id,
+  mapId: sgMap.id,
+});
+const trietPlayerMapHanoi = await db.PlayerMapOpen.create({
+  playerId: trietAccount.id,
+  mapId: haNoiMap.id,
+});
+const trietPlayerMapDaLat = await db.PlayerMapOpen.create({
+  playerId: trietAccount.id,
+  mapId: dalatMap.id,
+});
+
+const phatPlayerMap = await db.PlayerMapOpen.create({
+  playerId: phatAccount.id,
+  mapId: sgMap.id,
+})
+
+
   // ---------------------------------------------------------
-  // PLAYER_MAP_OPENS
-  const trietPlayerMap = await db.PlayerMapOpen.create({
+  // PLAYER_LAND_OPENS
+  const trietPlayerBenThanhLand = await db.PlayerLandOpen.create({
     playerId: trietAccount.id,
-    mapId: sgMap.id,
+    landId: benthanhLand.id,
+  });
+  const trietPlayerDinhDoclapLand = await db.PlayerLandOpen.create({
+    playerId: trietAccount.id,
+    landId: dinhdoclapLand.id,
   });
 
-  const phatPlayerMap = await db.PlayerMapOpen.create({
+  const phatPlayerBenThanhLand = await db.PlayerLandOpen.create({
     playerId: phatAccount.id,
-    mapId: sgMap.id,
+    landId: benthanhLand.id,
   })
 
-  
+
   // ---------------------------------------------------------
   // ASSET & OBJECT_ASSETS
   const asset1 = await db.Asset.create({

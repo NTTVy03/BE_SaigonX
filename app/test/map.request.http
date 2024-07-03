@@ -1,5 +1,42 @@
+### Register
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "phat",
+    "password": "phat"
+}
+
+### Login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "TrietHuynh",
+    "password": "1234567890"
+}
 ### Get All Maps
 GET http://localhost:3000/api/map
 
 ### Get Map by ID
 GET http://localhost:3000/api/map/1
+
+### Get Map Lands
+GET  http://localhost:3000/api/map/1/land
+
+
+### Get User Map
+GET http://localhost:3000/api/map/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIwMDI0NDcwLCJleHAiOjE3MjAxMTA4NzB9.7IjuB135UEJGU882Q2nrvgVNNbuk6qhahPR2nNt2R6w
+
+### Get User Map Detail
+GET http://localhost:3000/api/map/user/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIwMDI0NDcwLCJleHAiOjE3MjAxMTA4NzB9.7IjuB135UEJGU882Q2nrvgVNNbuk6qhahPR2nNt2R6w
+
+### Register Map
+POST  http://localhost:3000/api/map/user/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIwMDI0NDcwLCJleHAiOjE3MjAxMTA4NzB9.7IjuB135UEJGU882Q2nrvgVNNbuk6qhahPR2nNt2R6w
+
+### Get User Open Lands
+GET http://localhost:3000/api/map/user/1/land
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIwMDEyNjIwLCJleHAiOjE3MjAwOTkwMjB9.kmAZ8naqUn4KZbc8Je7CUIzH1GQCzN2uyGM001z42O0

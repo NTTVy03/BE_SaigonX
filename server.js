@@ -36,6 +36,9 @@ app.use("/api/auth", authRouter);
 const mapRouter = require("./app/routes/map.route"); // /api/map
 app.use("/api/map", mapRouter);
 
+const landRouter = require("./app/routes/land.route"); // /api/land
+app.use("/api/land", landRouter);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

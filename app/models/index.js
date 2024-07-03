@@ -24,7 +24,7 @@ db.Location       = require('./Location.model.js'     ).createModel(sequelize, S
 db.Player         = require('./Player.model.js'       ).createModel(sequelize, Sequelize);
 db.PlayerMapOpen  = require('./PlayerMapOpen.model.js').createModel(sequelize, Sequelize);
 db.PlayerMapData  = require('./PlayerMapData.model.js').createModel(sequelize, Sequelize);
-
+db.PlayerLandOpen = require('./PlayerLandOpen.model.js').createModel(sequelize, Sequelize);
 // ----------------- Association
 
 // [1] user_account -- [1] user_info
@@ -147,6 +147,14 @@ db.PlayerMapOpen.belongsTo(db.Player);
 // [N] object -- [N] asset --> object_assets(assetId, objectId)
 db.Asset.belongsToMany(db.Object, {through: "object_assets"}); 
 db.Object.belongsToMany(db.Asset, {through: "object_assets"});
+
+// [N] player - [N] land 
+db.Player.belongsToMany(db.Land, { through: db.PlayerLandOpen });
+db.Land.belongsToMany(db.Player, { through: db.PlayerLandOpen });
+db.Land.hasMany(db.PlayerLandOpen);
+db.PlayerLandOpen.belongsTo(db.Land);
+db.Player.hasMany(db.PlayerLandOpen);
+db.PlayerLandOpen.belongsTo(db.Player);
 
 // --------------------- TRIGGER
 
