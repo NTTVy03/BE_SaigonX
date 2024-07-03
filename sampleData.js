@@ -233,6 +233,7 @@ const trietPlayerMapSaigon = await db.PlayerMapOpen.create({
   playerId: trietAccount.id,
   mapId: sgMap.id,
 });
+console.log(">>>>: ",trietPlayerMapSaigon);
 const trietPlayerMapHanoi = await db.PlayerMapOpen.create({
   playerId: trietAccount.id,
   mapId: haNoiMap.id,
@@ -251,17 +252,20 @@ const phatPlayerMap = await db.PlayerMapOpen.create({
   // ---------------------------------------------------------
   // PLAYER_LAND_OPENS
   const trietPlayerBenThanhLand = await db.PlayerLandOpen.create({
+    playerMapOpenId: trietPlayerMapSaigon.id,
     playerId: trietAccount.id,
     landId: benthanhLand.id,
   });
   const trietPlayerDinhDoclapLand = await db.PlayerLandOpen.create({
     playerId: trietAccount.id,
     landId: dinhdoclapLand.id,
+    playerMapOpenId: trietPlayerMapSaigon.id,
   });
 
   const phatPlayerBenThanhLand = await db.PlayerLandOpen.create({
     playerId: phatAccount.id,
     landId: benthanhLand.id,
+    playerMapOpenId: trietPlayerMapSaigon.id,
   })
 
   

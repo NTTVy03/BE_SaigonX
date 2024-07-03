@@ -4,6 +4,11 @@ const NAME = "PlayerMapOpen";
 // between Player and Map (isActive = true)
 const createModel = (sequelize, Sequelize) => {
   const PlayerMapOpen = sequelize.define('player_map_open', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     // [DONE] FK: [N] player -- [N] map
     isPassed: {
         type: Sequelize.BOOLEAN,

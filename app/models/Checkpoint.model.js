@@ -3,6 +3,9 @@ const NAME = "Checkpoint";
 const createModel = (sequelize, Sequelize) => {
   const Object = require("./Object.model").createModel(sequelize,Sequelize);
 
+
+  // Trigger when CREATE: Count num_checkpoint of Land
+
   const Checkpoint = sequelize.define('checkpoint', {
     // [DONE] FK: [1] land -- [N] checkpoint NOT NULL
 
