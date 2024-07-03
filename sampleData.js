@@ -264,7 +264,7 @@ const phatPlayerMap = await db.PlayerMapOpen.create({
     landId: benthanhLand.id,
   })
 
-
+  
   // ---------------------------------------------------------
   // ASSET & OBJECT_ASSETS
   const asset1 = await db.Asset.create({
