@@ -1,6 +1,6 @@
 // @TODO: Nhớ Review
 // [N] A - [N] B (Through entityIntersection)
-const create_N_N_accosiation = (entityA, entityB, entityIntersection) => {
+const create_N_N_association = (entityA, entityB, entityIntersection) => {
   entityA.belongsToMany(entityB, { through: entityIntersection });
   entityB.belongsToMany(entityA, { through: entityIntersection });
 
@@ -13,7 +13,7 @@ const create_N_N_accosiation = (entityA, entityB, entityIntersection) => {
 // @TODO: Nhớ Review
 // [1] entity1 -- [N] entityN 
 // (Lấy ID/khóa chính của entity1) làm foreign key cho entityN
-const create_1_N_accosiation = (entity1, entityN, foreignKey, allowNull = false) => {
+const create_1_N_association = (entity1, entityN, foreignKey, allowNull = false) => {
   entity1.hasMany(entityN, {
     foreignKey: {
       name: foreignKey,
@@ -27,7 +27,7 @@ const create_1_N_accosiation = (entity1, entityN, foreignKey, allowNull = false)
 // @TODO: Nhớ Review
 // [1] entity1 -- [1] entity2 (entity1 có trước)
 // Lấy ID/khóa chính của entity1 làm foreign key cho entity2
-const create_1_1_accosiation = (entity1, entity2, foreignKey='id', allowNull=false) => {
+const create_1_1_association = (entity1, entity2, foreignKey='id', allowNull=false) => {
   entity1.hasOne(entity2, {
     foreignKey: {
       name: foreignKey,
@@ -40,7 +40,7 @@ const create_1_1_accosiation = (entity1, entity2, foreignKey='id', allowNull=fal
 }
 
 module.exports = {
-  create_N_N_accosiation,
-  create_1_N_accosiation,
-  create_1_1_accosiation
+  create_N_N_association,
+  create_1_N_association,
+  create_1_1_association
 }

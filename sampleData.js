@@ -233,7 +233,6 @@ const trietPlayerMapSaigon = await db.PlayerMapOpen.create({
   playerId: trietAccount.id,
   mapId: sgMap.id,
 });
-console.log(">>>>: ",trietPlayerMapSaigon);
 const trietPlayerMapHanoi = await db.PlayerMapOpen.create({
   playerId: trietAccount.id,
   mapId: haNoiMap.id,
