@@ -1,6 +1,8 @@
 const NAME = "Game";
 
 const createModel = (sequelize, Sequelize) => {
+  const Object    = require('./Object.model.js' ).createModel(sequelize, Sequelize);
+
   const Game = sequelize.define('game', {
     id: {
         type: Sequelize.INTEGER,
