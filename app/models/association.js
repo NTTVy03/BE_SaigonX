@@ -137,7 +137,7 @@ const createDBAssociation = (db) => {
     
     
     // [N] player - [N] land 
-    create_N_N_association(db.Player, db.Land, db.PlayerLandOpen);
+    // create_N_N_association(db.Player, db.Land, db.PlayerLandOpen);
     // db.Player.belongsToMany(db.Land, { through: db.PlayerLandOpen });
     // db.Land.belongsToMany(db.Player, { through: db.PlayerLandOpen });
     // db.Land.hasMany(db.PlayerLandOpen);
@@ -166,6 +166,22 @@ const createDBAssociation = (db) => {
     // db.Checkpoint.hasMany(db.PlayerLandCheckpoint);
     // db.PlayerLandCheckpoint.belongsTo(db.Checkpoint);
 
+    create_1_N_association(db.GameType, db.Game, 'gameTypeId');
+    create_1_N_association(db.Checkpoint, db.Game, 'checkpointId');
+
+    create_1_N_association(db.Player, db.GameStatus, 'playerId');
+    create_1_N_association(db.Game, db.GameStatus, 'gameId');
+
+    create_1_N_association(db.GameLeaderboard, db.LeaderboardRecord, 'gameLeaderboardId');
+    create_1_1_association(db.LeaderboardRecord, db.GameStatus, 'id');
+
+    create_1_N_association(db.RewardType, db.Reward, 'rewardTypeId');
+
+    create_1_N_association(db.Object, db.ObjectReward, 'objectId');
+
+    create_N_N_association(db.Object, db.Reward, db.ObjectReward);
+
+    create_N_N_association(db.Player, db.Object, db.Result);
     console.log(">>> Create DB association <<<");
 }
 

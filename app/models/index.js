@@ -27,6 +27,15 @@ db.PlayerLandOpen = require('./PlayerLandOpen.model.js').createModel(sequelize, 
 db.PlayerMapData  = require('./PlayerMapData.model.js').createModel(sequelize, Sequelize);
 db.PlayerLandCheckpoint = require('./PlayerLandCheckpoint.model.js').createModel(sequelize, Sequelize);
 db.ObjectAssets   = require('./ObjectAssets.model.js' ).createModel(sequelize, Sequelize);
+db.GameType   = require('./GameType.model.js' ).createModel(sequelize, Sequelize);
+db.Game   = require('./Game.model.js' ).createModel(sequelize, Sequelize);
+db.GameStatus   = require('./GameStatus.model.js' ).createModel(sequelize, Sequelize);
+db.GameLeaderboard   = require('./GameLeaderboard.model.js' ).createModel(sequelize, Sequelize);
+db.LeaderboardRecord   = require('./LeaderboardRecord.model.js' ).createModel(sequelize, Sequelize);
+db.Reward   = require('./Reward.model.js' ).createModel(sequelize, Sequelize);
+db.RewardType   = require('./RewardType.model.js' ).createModel(sequelize, Sequelize);
+db.ObjectReward   = require('./ObjectReward.model.js' ).createModel(sequelize, Sequelize);
+db.Result   = require('./Result.model.js' ).createModel(sequelize, Sequelize);
 // ----------------- Association
 
 require('./association.js')(db);

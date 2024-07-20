@@ -13,7 +13,7 @@ const createModel = (sequelize, Sequelize) => {
     //   allowNull: false,
     // },
     type: {
-      type: Sequelize.ENUM(['map', 'land', 'checkpoint']),
+      type: Sequelize.ENUM(['map', 'land', 'checkpoint', 'game']),
       allowNull: false,
     },
     code: {
