@@ -13,8 +13,7 @@ const authenticateJWT = (req, res, next) => {
       }
       console.log("authenticateJWT: userId --> ", userObject);
       req.userId = userObject.id;
-      // console.log("authenticateJWT --> passed")
-      // console.log(req.userId)
+      req.user = userObject;
       next();
     });
   } else {

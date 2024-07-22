@@ -1,0 +1,32 @@
+# $authToken =
+# GET http://localhost/api/auth/token
+# Content-Type: application/json
+
+# {
+#   "login": "some",
+#   "password": "asdfasdfasdf",
+# }
+
+# GET http://localhost/api/clients
+# Authorization: $authToken
+
+# GET http://localhost/api/products
+# Authorization: $authToken
+
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "TrietHuynh",
+    "password": "$2a$10$gqun1aaZRGRAFbmcR93ONuhegoCGFIw1AuXlgwhmwI8pN9s.ILd/6"
+}
+### Token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
+### Get User Infor
+GET http://localhost:3000/api/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
+
+### Get Player Data + Reward
+GET http://localhost:3000/api/user/player
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
+
+

@@ -13,6 +13,11 @@ exports.createModel = (sequelize, Sequelize) => {
           key: 'id'
         }
       },
+      score: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+        allowNull: false
+      },
       jsonData: {
         type: Sequelize.JSON
       }

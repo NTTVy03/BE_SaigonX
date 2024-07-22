@@ -9,16 +9,16 @@ const initialSampleData = require('./sampleData');
 
 const app = express();
 app.use(express.json());
-// app.use(cors({}))
+app.use(cors({}))
 
 // ---------------------- DATABASE
 db.sequelize.sync({
-    force: true
-    // alter: true    // alter: true will update the table schema
+    // force: true
+    alter: true    // alter: true will update the table schema
 })
 .then(() => {
   console.log("Synced db.");
-  initialSampleData();
+  // initialSampleData();
 })
 .catch((err) => {
   console.log("Failed to sync db: " + err.message);
@@ -32,6 +32,9 @@ app.get("/", (req, res) => {
 
 const authRouter = require("./app/routes/auth.route"); // /api/auth
 app.use("/api/auth", authRouter);
+
+const userRouter = require("./app/routes/user"); // /api/user
+app.use('/api/user', userRouter);
 
 const mapRouter = require("./app/routes/map.route"); // /api/map
 app.use("/api/map", mapRouter);
