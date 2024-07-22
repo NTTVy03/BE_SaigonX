@@ -10,7 +10,8 @@ exports.register = async (req, res) => {
 
   const { username, password, email, fullName} = req.body;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  let hashedPassword = password;
+  // const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
     const user = { 
@@ -44,7 +45,10 @@ exports.login = async (req, res) => {
   console.log("password: ", password)
   try {
     const user = await UserAccount.findOne({ where: { username } });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    // if (!user || !(await bcrypt.compare(password, user.password))) {
+    //   return res.status(401).json({ error: 'Invalid username or password' });
+    // }
+    if (!user || !(password === user.password)) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
     const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '24h' });
