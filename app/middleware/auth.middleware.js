@@ -1,4 +1,5 @@
 require('dotenv').config();
+const {UserUsecase} = require('../usecase/user')
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.JWT_SECRET;
 
@@ -22,8 +23,22 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
+const isAdmin = async (req, res, next) => {
+  let userId = req.userId;
+  let userInfo = await UserUsecase.getUserInfo(userId);
+  let isAdmin = userInfo.roles.some(role => role.role === 'admin' && role.isActive);
+  console.log("isAdmin: userInfo --> ", isAdmin);
+  if (isAdmin) {
+    next();
+    return;
+  }
+  
+  res.status(403).send("Require Admin Role!");
+}
+
 const authJwt = {
   authenticateJWT,
+  isAdmin
 }
 
 module.exports = authJwt;

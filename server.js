@@ -13,12 +13,12 @@ app.use(cors({}))
 
 // ---------------------- DATABASE
 db.sequelize.sync({
-    // force: true
-    alter: true    // alter: true will update the table schema
+    force: true
+    // alter: true    // alter: true will update the table schema
 })
 .then(() => {
   console.log("Synced db.");
-  // initialSampleData();
+  initialSampleData();
 })
 .catch((err) => {
   console.log("Failed to sync db: " + err.message);

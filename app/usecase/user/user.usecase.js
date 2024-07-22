@@ -1,4 +1,13 @@
 const db = require('../../models');
+
+const getUserInfo = async (userId) => {
+    const userDetail = await db.UserAccount.findByPk(userId, {
+        attributes: { exclude: ['password'] },
+        include: [{ model: db.UserInfo }, { model: db.Role }]
+    });
+    return userDetail;
+}
+
 const getPlayerData = async (userId) => {
     console.log(">>> getPlayerData <<<");
     const playerData = await db.Player.findByPk(userId, {});
@@ -43,6 +52,7 @@ const getPlayerReward = async (userId, rewardTypeId) => {
 }
 
 const UserUsecase = {
+    getUserInfo,
     getPlayerData,
     getObjectPass, 
     getPlayerReward 

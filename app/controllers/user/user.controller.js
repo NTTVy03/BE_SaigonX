@@ -10,10 +10,7 @@ const getUserInfo = async (req, res) => {
     let userId = req.userId;
 
     try {
-        const userDetail = await UserAccount.findByPk(userId, {
-            attributes: { exclude: ['password'] },
-            include: [{ model: UserInfo }, { model: db.Role }]
-        });
+        const userDetail = await UserUsecase.getUserInfo(userId);
 
         res.status(200).json({data: userDetail});
     } catch (error) {

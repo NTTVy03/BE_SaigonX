@@ -30,3 +30,20 @@ GET http://localhost:3000/api/user/player
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
 
 
+
+######## User Map
+GET http://localhost:3000/api/user/map
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxNjU3MzYzLCJleHAiOjE3MjE3NDM3NjN9.7MonsyhPrqNHiU0bbXpSCoihaV4fNUZQde-qor2LVpc
+
+######## Map
+GET http://localhost:3000/api/map
+
+###
+GET http://localhost:3000/api/map/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
+
+###
+GET http://localhost:3000/api/map/1
+
+### 9: no active
+GET http://localhost:3000/api/map/9

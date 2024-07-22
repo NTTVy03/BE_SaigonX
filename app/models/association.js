@@ -84,7 +84,7 @@ const createDBAssociation = (db) => {
     // });
     
     // [1] checkpoint -- [1] object 
-    create_1_1_association(db.Checkpoint, db.Object, 'id');
+    create_1_1_association(db.Object, db.Checkpoint, 'id');
     // db.Object.hasOne(db.Checkpoint, { 
     //   foreignKey: {
     //     name: 'id',
