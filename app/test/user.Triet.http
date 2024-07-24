@@ -35,6 +35,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxN
 GET http://localhost:3000/api/user/map
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxNjU3MzYzLCJleHAiOjE3MjE3NDM3NjN9.7MonsyhPrqNHiU0bbXpSCoihaV4fNUZQde-qor2LVpc
 
+###
+GET http://localhost:3000/api/user/map/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxNjU3MzYzLCJleHAiOjE3MjE3NDM3NjN9.7MonsyhPrqNHiU0bbXpSCoihaV4fNUZQde-qor2LVpc
+
 ######## Map
 GET http://localhost:3000/api/map
 

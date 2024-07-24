@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const { authenticateJWT } = require('../../middleware/auth.middleware');
+const { isOpenMap, isAccessMap } = require('../../middleware/map.middleware');
 const {  UserMapController } = require('../../controllers/user');
 
-router.get("/"   , authenticateJWT, UserMapController.getUserMapsOpen);
-// router.get("/:mapId", authenticateJWT, isOpenMap, UserMapController.getUserMapDetail);
+router.get("/"   ,  UserMapController.getUserMapsOpen);
+router.get("/:mapId", isAccessMap, isOpenMap, UserMapController.getUserMapDetail);
 // router.post('/:mapId', authenticateJWT, UserMapController.postPlayerOpenMap);
 
 

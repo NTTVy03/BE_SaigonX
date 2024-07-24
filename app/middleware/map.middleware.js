@@ -55,13 +55,14 @@ const isOpenMap = async (req, res, next) => {
   // check player_map_open
   let playerMapOpen = await PlayerMapOpen.findOne({
     where: {
-      userId: req.userId,
+      playerId: req.userId,
       mapId: mapId
     }
   });
 
   if(playerMapOpen){
-    console.log('playerMapOpen: ', playerMapOpen);
+    console.log("playerMapOpen --> ", playerMapOpen.dataValues);
+    req.playerMapOpen = playerMapOpen;
     next();
     return;
   }

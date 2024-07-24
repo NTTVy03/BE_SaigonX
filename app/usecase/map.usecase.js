@@ -26,11 +26,29 @@ const object_all_location_assets = {
     include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_location_assets),
 };
 
+const object_active_location_assets_land_detail = [
+    object_active_location_assets,
+    {
+        model: db.Land,
+        include: LandUsecase.landEagerLoading.object_active_location_assets,
+    },
+]
+
+const object_all_location_assets_land_detail = [
+    object_all_location_assets,
+    {
+        model: db.Land,
+        include: LandUsecase.landEagerLoading.object_all_location_assets,
+    },
+]
+
 const mapEagerLoading = {
     object_active,
     object_all,
     object_active_location_assets,
     object_all_location_assets,
+    object_active_location_assets_land_detail,
+    object_all_location_assets_land_detail
 };
 
 
@@ -60,13 +78,7 @@ const getActiveMapDetailById = async (mapId) => {
         where: {
             id: mapId,
         },
-        include: [
-            mapEagerLoading.object_active_location_assets,
-            {
-                model: db.Land,
-                include: LandUsecase.landEagerLoading.object_active_location_assets,
-            },
-        ],
+        include: mapEagerLoading.object_active_location_assets_land_detail,
     });
 
     return map;
