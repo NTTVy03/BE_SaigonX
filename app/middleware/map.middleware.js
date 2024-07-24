@@ -1,15 +1,10 @@
 const db = require('../models');
-const Map = db.Map;
-const Object = db.Object;
-const Role = db.Role;
-const PlayerMapOpen = db.PlayerMapOpen;
 
 const { Roles } = require('../type/enum/Role');
+const MapUsecase = require('../usecase/map.usecase');
 
 /**
- * Check if user has permission to access the map or not
- *    - Map is Active => OK
- *    - Map is not Active => Check if user is Admin or not
+ * Check if map isActive
  */
 const isAccessMap = async (req, res, next) => {
   // console.log("isAccessMap: userId, mapId --> ", req.userId, req.params.mapId);
@@ -18,42 +13,26 @@ const isAccessMap = async (req, res, next) => {
 
   let map = await Map.findByPk(mapId, 
     {
-      include: [
-        {
-          model: db.Object,
-          as: 'object',
-        }
-      ]
+      include: MapUsecase.mapEagerLoading.object_active
     }
   );
-
-  // console.log("map --> ", map.dataValues);
-  let isActive = map.object.isActive;
-
-  if(isActive){
-    next();
+  if(!map) {
+    res.status(403).send({ message: "You don't have permission to access this map" });
     return;
   }
 
-  let roles = await Role.findAll({
-    where: {
-      userId: userId
-    }
-  });
-
-  if (roles.include(Roles.ADMIN)) {
-    next();
-    return;
-  }
-
-  res.status(403).send({ message: "You don't have permission to access this map" });
+  req.map = map;
+  next();
 }
 
+/**
+ * Check if User Open Map => Have record in PlayerMapOpen
+ */
 const isOpenMap = async (req, res, next) => {
   let mapId = req.params.mapId;
 
   // check player_map_open
-  let playerMapOpen = await PlayerMapOpen.findOne({
+  let playerMapOpen = await db.PlayerMapOpen.findOne({
     where: {
       playerId: req.userId,
       mapId: mapId

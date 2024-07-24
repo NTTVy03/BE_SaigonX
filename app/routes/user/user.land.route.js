@@ -4,7 +4,7 @@ const router = express.Router();
 const { authenticateJWT } = require('../../middleware/auth.middleware');
 const {  UserLandController } = require('../../controllers/user');
 
-router.get("/"   , authenticateJWT, UserMapController.getUserMapsOpen);
+// router.get("/"   , authenticateJWT, UserLandController.getUserMapsOpen);
 // router.get("/:mapId", authenticateJWT, isOpenMap, UserMapController.getUserMapDetail);
 // router.post('/:mapId', authenticateJWT, UserMapController.postPlayerOpenMap);
 
