@@ -6,11 +6,11 @@ const { isAccessMap, isOpenMap } = require('../middleware/map.middleware');
 
 const mapController = require('../controllers/map.controller');
 
-router.get("/"           ,                  mapController.getActiveMaps);
+router.get("/"           ,                  mapController.getAllActiveMaps);
 router.get('/all'        , authenticateJWT,   isAdmin,  mapController.getAllMaps);
 
 // router.get("/user/:mapId/land/pass", authenticateJWT, isAccessMap, mapController.getUserLandsOpen);
 
-router.get("/:mapId"        ,                  mapController.getActiveMapById);
+router.get("/:mapId"        ,   isAccessMap, mapController.getActiveMapById);
 
 module.exports = router;

@@ -3,60 +3,57 @@ const ObjectUsecase = require('./object.usecase');
 const LandUsecase = require('./land.usecase');
 const _ = require('lodash');
 
+const map_object_active = {
+    model: db.Map,
+    include: ObjectUsecase.objectEagerLoading.object_active,
+}
 
-const object_active = {
-    model: db.Object,
-    where: {
-        isActive: true,
-    },
-    required: true,
-};
+const map_object_all = {
+    model: db.Map,
+    include: ObjectUsecase.objectEagerLoading.object_all,    
+}
 
-const object_all = {
-    model: db.Object,
-};
+const map_object_active_location_assets = {
+    model: db.Map,
+    include: ObjectUsecase.objectEagerLoading.object_active_location_assets,
+}
 
-const object_active_location_assets = {
-    ...object_active,
-    include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_location_assets),
-};
+const map_object_all_location_assets = {
+    model: db.Map,
+    include: ObjectUsecase.objectEagerLoading.object_all_location_assets,
+}
 
-const object_all_location_assets = {
-    ...object_all,
-    include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_location_assets),
-};
+const map_object_active_location_assets_and_land_detail = {
+    model: db.Map,
+    include: [
+        ObjectUsecase.objectEagerLoading.object_active_location_assets.include,
+        LandUsecase.landEagerLoading.land_object_active_location_assets,
+    ]
+}
 
-const object_active_location_assets_land_detail = [
-    object_active_location_assets,
-    {
-        model: db.Land,
-        include: LandUsecase.landEagerLoading.object_active_location_assets,
-    },
-]
-
-const object_all_location_assets_land_detail = [
-    object_all_location_assets,
-    {
-        model: db.Land,
-        include: LandUsecase.landEagerLoading.object_all_location_assets,
-    },
-]
+const map_object_all_location_assets_land_detail = {
+    model: db.Map,
+    include: [
+        ObjectUsecase.objectEagerLoading.object_all_location_assets,
+        LandUsecase.landEagerLoading.land_object_all_location_assets,
+    ]
+}
 
 const mapEagerLoading = {
-    object_active,
-    object_all,
-    object_active_location_assets,
-    object_all_location_assets,
-    object_active_location_assets_land_detail,
-    object_all_location_assets_land_detail
+    map_object_active,
+    map_object_all,
+    map_object_active_location_assets,
+    map_object_all_location_assets,
+    map_object_active_location_assets_and_land_detail,
+    map_object_all_location_assets_land_detail,
 };
 
 
-const getActiveMaps = async () => {
+const getAllActiveMaps = async () => {
     console.log("# Get active maps");
     // Get active maps
     let maps = await db.Map.findAll({
-        include: mapEagerLoading.object_active_location_assets,
+        include: map_object_active_location_assets.include
     });
 
     return maps;
@@ -66,19 +63,20 @@ const getAllMaps = async () => {
     console.log("# Get all maps");
     // Get all maps
     let maps = await db.Map.findAll({
-        include: mapEagerLoading.object_all_location_assets,
+        include: map_object_all_location_assets.include
     });
 
     return maps;
 }
 
+// console.log("map_object_active_location_assets_and_land_detail.include: ", map_object_active_location_assets_and_land_detail.include);
 const getActiveMapDetailById = async (mapId) => {
     // Get active maps
-    let map = await db.Map.findOne({
-        where: {
-            id: mapId,
-        },
-        include: mapEagerLoading.object_active_location_assets_land_detail,
+    let map = await db.Map.findByPk(mapId, {
+        include: [
+            _.cloneDeep(ObjectUsecase.objectEagerLoading.object_active_location_assets),
+            _.cloneDeep(LandUsecase.landEagerLoading.land_object_active_location_assets),
+        ]
     });
 
     return map;
@@ -86,24 +84,15 @@ const getActiveMapDetailById = async (mapId) => {
 
 const getMapDetailById = async (mapId) => {
     // Get active maps
-    let map = await db.Map.findOne({
-        where: {
-            id: mapId,
-        },
-        include: [
-            mapEagerLoading.object_all_location_assets, 
-            {
-                model: db.Land,
-                include: LandUsecase.landEagerLoading.object_all_location_assets,
-            }, 
-        ],
+    let map = await db.Map.findByPk(mapId, {
+        include: map_object_all_location_assets_land_detail.include
     });
 
     return map;
 }
 
 const MapUsecase = {
-    getActiveMaps,
+    getAllActiveMaps,
     getAllMaps,
     getActiveMapDetailById,
     getMapDetailById,
