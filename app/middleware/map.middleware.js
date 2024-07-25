@@ -13,9 +13,11 @@ const isAccessMap = async (req, res, next) => {
 
   let map = await db.Map.findByPk(mapId, 
     {
-      include: MapUsecase.mapEagerLoading.object_active
+      include: MapUsecase.mapEagerLoading.map_object_active.include
     }
   );
+
+
   if(!map) {
     res.status(403).send({ message: "You don't have permission to access this map" });
     return;

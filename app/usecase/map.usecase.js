@@ -26,7 +26,7 @@ const map_object_all_location_assets = {
 const map_object_active_location_assets_and_land_detail = {
     model: db.Map,
     include: [
-        ObjectUsecase.objectEagerLoading.object_active_location_assets,
+        ObjectUsecase.objectEagerLoading.object_active_location_assets.include,
         LandUsecase.landEagerLoading.land_object_active_location_assets,
     ]
 }
@@ -69,24 +69,13 @@ const getAllMaps = async () => {
     return maps;
 }
 
-console.log("map_object_active_location_assets_and_land_detail.include: ", map_object_active_location_assets_and_land_detail.include);
+// console.log("map_object_active_location_assets_and_land_detail.include: ", map_object_active_location_assets_and_land_detail.include);
 const getActiveMapDetailById = async (mapId) => {
     // Get active maps
-    // let map = await db.Map.findByPk(mapId, {
-    //     include: map_object_active_location_assets_and_land_detail.include
-    // });
-
     let map = await db.Map.findByPk(mapId, {
         include: [
-            ObjectUsecase.objectEagerLoading.object_active_location_assets,
-            {
-                ...LandUsecase.landEagerLoading.land_object_active,
-                include: {
-                    LandUsecase.landEagerLoading.land_object_active.include,
-                    separate: true,
-                    include: ObjectUsecase.objectEagerLoading.object_active_location_assets,
-                }
-            }
+            _.cloneDeep(ObjectUsecase.objectEagerLoading.object_active_location_assets),
+            _.cloneDeep(LandUsecase.landEagerLoading.land_object_active_location_assets),
         ]
     });
 
