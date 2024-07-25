@@ -14,15 +14,12 @@ const getUserMapsOpen = async (req, res) => {
 }
 
 const getUserMapDetail = async (req, res) => {
-    let playerMapOpen = req.playerMapOpen;
+    const playerMapOpen = req.playerMapOpen;
     try{
-        // const map = await UserMapUseCase.getUserMapDetail(userId, mapId);
-        // res.status(200).json({data: map});
-        playerMapOpen = await playerMapOpen.getMap(
-            {
-                include: mapEagerLoading.object_active_location_assets_land_detail,
-            }
+        const mapData = await playerMapOpen.getMap(
+            mapEagerLoading.map_object_active_location_assets
         );
+        playerMapOpen.dataValues.map = mapData;
         res.status(200).json({data: playerMapOpen});
     }catch(err){
         console.error(err);

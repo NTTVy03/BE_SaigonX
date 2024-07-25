@@ -18,33 +18,31 @@ Content-Type: application/json
 
 {
     "username": "TrietHuynh",
-    "password": "$2a$10$WvTPahjgOYDBrW//ByL8jusfFWd7ETLailSuZMycygQifmCih7kgi"
+    "password": "$2a$10$TZ0HxkGlwJrg4gTHp1gadOuSAYL6NX/1iEBbTgSrNY7Fr.paVva9G"
 }
 ### Token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
 ### Get User Infor
 GET http://localhost:3000/api/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
 
 ### Get Player Data + Reward
 GET http://localhost:3000/api/user/player
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
-
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
 
 ######## User Map
 GET http://localhost:3000/api/user/map
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxNjU3MzYzLCJleHAiOjE3MjE3NDM3NjN9.7MonsyhPrqNHiU0bbXpSCoihaV4fNUZQde-qor2LVpc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
 
 ###
 GET http://localhost:3000/api/user/map/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY0MDY3LCJleHAiOjE3MjE5NTA0Njd9.VwPJJsg3O36E_AID6k4Eo4RlbgDeFL0qeT3CeIkXv10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
 
 ######## Map
 GET http://localhost:3000/api/map
 
 ###
 GET http://localhost:3000/api/map/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
 
 ###
 GET http://localhost:3000/api/map/1

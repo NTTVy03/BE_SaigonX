@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const { authenticateJWT } = require('../../middleware/auth.middleware');
 const {  UserLandController } = require('../../controllers/user');
 
 // router.get("/"   , authenticateJWT, UserLandController.getUserMapsOpen);

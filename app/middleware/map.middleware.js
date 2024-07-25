@@ -11,7 +11,7 @@ const isAccessMap = async (req, res, next) => {
   let userId = req.userId;
   let mapId = req.params.mapId;
 
-  let map = await Map.findByPk(mapId, 
+  let map = await db.Map.findByPk(mapId, 
     {
       include: MapUsecase.mapEagerLoading.object_active
     }

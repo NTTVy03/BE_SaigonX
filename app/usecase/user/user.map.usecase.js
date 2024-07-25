@@ -10,16 +10,7 @@ const getUserMapsOpen = async (userId) => {
         include: [
           { model: db.Player, },
 
-          {
-            model: db.Map,
-            required: true,
-            
-            include: MapUsecase.mapEagerLoading.object_active_location_assets,
-          },
-          // {
-          //   model: db.PlayerMapData,
-          //   as: 'playerMapData'
-          // }
+          MapUsecase.mapEagerLoading.map_object_active_location_assets,
         ]
     });
 

@@ -1,39 +1,70 @@
 const db = require('../models');
 const ObjectUsecase = require('./object.usecase');
-const _ = require('lodash');
+const CheckpointUsecase = require('./checkpoint.usecase');
 
 
-const object_active = {
-    model: db.Object,
-    where: {
-        isActive: true,
-    },
-    required: true,
+const land_object_active = {
+    model: db.Land,
+    include: ObjectUsecase.objectEagerLoading.object_active,
 };
 
-const object_all = {
-    model: db.Object,
+const land_object_all = {
+    model: db.Land,
+    include: ObjectUsecase.objectEagerLoading.object_all,
 };
 
-const object_active_location_assets = {
-    ...object_active,
-    include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_location_assets),
+const land_object_active_location_assets = {
+    model: db.Land,
+    include: ObjectUsecase.objectEagerLoading.object_active_location_assets,
 };
 
-const object_all_location_assets = {
-    ...object_all,
-    include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_location_assets),
+console.log("land_object_active_location_assets", land_object_active_location_assets);  
+
+const land_object_all_location_assets = {
+    model: db.Land,
+    include: ObjectUsecase.objectEagerLoading.object_all_location_assets,
+};
+
+const land_object_active_location_assets_and_checkpoint = {
+    model: db.Land,
+    include: [
+        ObjectUsecase.objectEagerLoading.object_active_location_assets,
+        CheckpointUsecase.checkpointEagerLoading.checkpoint_object_active_location_assets,
+    ]
+};
+
+const land_object_all_location_assets_and_checkpoint = {
+    model: db.Land,
+    include: [
+        ObjectUsecase.objectEagerLoading.object_all_location_assets,
+        CheckpointUsecase.checkpointEagerLoading.checkpoint_object_all_location_assets,
+    ]
 };
 
 const landEagerLoading = {
-    object_active,
-    object_all,
-    object_active_location_assets,
-    object_all_location_assets,
+    land_object_active,
+    land_object_all,
+    land_object_active_location_assets,
+    land_object_all_location_assets,
+    land_object_active_location_assets_and_checkpoint,
+    land_object_all_location_assets_and_checkpoint,
 };
 
-// console.log('landEagerLoading: ', landEagerLoading);
+const getDetailActiveLandById = async (req, res) => {
+    let landId = req.params.landId;
+    let landActiveDetail = await db.Land.findByPk(landId, {
+        include: [
+            landEagerLoading.object_active_location_assets,
+            {
+                model: db.Checkpoint,
+                order: [
+                    'ordinal', 'ASC'
+                ],
 
+            }
+        ]
+    });
+}
 const LandUsecase = {
     landEagerLoading,
 };
