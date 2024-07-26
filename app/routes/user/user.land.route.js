@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const {  UserLandController } = require('../../controllers/user');
+const { UserLandController } = require('../../controllers/user') 
+const { isOpenLand } = require('../../middleware/land.middleware');
 
-// router.get("/"   , authenticateJWT, UserLandController.getUserMapsOpen);
-// router.get("/:mapId", authenticateJWT, isOpenMap, UserMapController.getUserMapDetail);
-// router.post('/:mapId', authenticateJWT, UserMapController.postPlayerOpenMap);
+router.get('/', (req, res) => {
+    res.json({ message: 'User Land Route' });
+});
+router.get("/:landId"  , isOpenLand, UserLandController.getLandActiveDetailById);
 
-
-// router.get("/:mapId/land", authenticateJWT, isAccessMap, mapController.getUserLandsOpen);
 
 
 module.exports = router;
