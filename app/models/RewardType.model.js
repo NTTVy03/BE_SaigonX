@@ -5,6 +5,7 @@ const createModel = (sequelize, Sequelize) => {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     code: {
         type: Sequelize.STRING,

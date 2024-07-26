@@ -355,6 +355,80 @@ const phatPlayerMap = await db.PlayerMapOpen.create({
     checkpointId: 8, // phong dai yen
   });
 
+  // ---------------------------------------------------------
+  // REWARD TYPES
+  db.RewardType.create({
+    code: 'tien' // map
+  });
+
+  db.RewardType.create({
+    code: 'vang' // land
+  });
+
+  db.RewardType.create({
+    code: 'mau' // checkpoint
+  });
+
+  // OBJECT REWARDS
+  db.ObjectReward.create({
+    objectId: 1,
+    rewardTypeId: 1,
+    quantity: 100,
+  });
+  
+  db.ObjectReward.create({
+    objectId: 2,
+    rewardTypeId: 2,
+    quantity: 50,
+  });
+  
+  db.ObjectReward.create({
+    objectId: 3,
+    rewardTypeId: 3,
+    quantity: 10,
+  });
+
+  db.ObjectReward.create({
+    objectId: 4,
+    rewardTypeId: 3,
+    quantity: 25,
+  });
+
+  db.ObjectReward.create({
+    objectId: 5,
+    rewardTypeId: 2,
+    quantity: 70,
+  });
+
+  db.ObjectReward.create({
+    objectId: 6,
+    rewardTypeId: 3,
+    quantity: 15,
+  });
+
+  db.ObjectReward.create({
+    objectId: 7,
+    rewardTypeId: 3,
+    quantity: 30,
+  });
+
+  db.ObjectReward.create({
+    objectId: 8,
+    rewardTypeId: 3,
+    quantity: 35,
+  });
+
+  db.ObjectReward.create({
+    objectId: 9,
+    rewardTypeId: 1,
+    quantity: 200,
+  });
+
+  db.ObjectReward.create({
+    objectId: 10,
+    rewardTypeId: 1,
+    quantity: 500,
+  });
 }
 
 module.exports = initialSampleData;
