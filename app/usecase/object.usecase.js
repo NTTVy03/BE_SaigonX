@@ -1,50 +1,56 @@
 const db = require('../models');
+const { ObjectType } = require('../type/enum/ObjectType');
+const CheckpointUsecase = require('./checkpoint.usecase');
+const LandUsecase = require('./land.usecase');
+const MapUsecase = require('./map.usecase');
+const getObjectDetail = async (objectId, objectType) => {
+    const eagerLoading = [object_active_location_assets.include];
 
-const object_active = {
-    model: db.Object,
-    where: {
-        isActive: true,
-    },
-    required: true,
-};
+    switch (objectType) {
+        case ObjectType.MAP:
+            eagerLoading.push({model: db.Map});
+            break;
+        case ObjectType.LAND:
+            eagerLoading.push({model: db.Land});
+            break;
+        case ObjectType.CHECKPOINT:
+            eagerLoading.push({model: db.Checkpoint});
+            break;
+        case ObjectType.GAME:
+            eagerLoading.push({model: db.Game});
+            break;
+        default: 
+            return null;
+    }
 
-const object_all = {
-    model: db.Object,
-};
+    const object = await db.Object.findOne({
+        where: { id: objectId, },
+        include: eagerLoading,
+    });
 
-const object_location = {
-    model: db.Location,
-};
+    return object;
+}
 
-const object_assets =  {
-    model: db.Asset,
-};
- 
-const object_all_location_assets = {
-    ...object_all,
-    include: [
-        object_location,
-        object_assets,
-    ],
-};
-
-const object_active_location_assets = {
-    ...object_active,
-    include: [
-        object_location,
-        object_assets,
-    ],
-};
-
-const objectEagerLoading = {
-    object_active,
-    object_all,
-    object_active_location_assets,
-    object_all_location_assets,
-};
+const getObjectAccess = async (objectId, objectType, userId) => {
+    console.log('ObjectType: ', objectType);
+    switch (objectType) {
+        case ObjectType.CHECKPOINT:
+            let isAccessCheckpoint = await CheckpointUsecase.isAccessCheckpoint(userId, objectId);
+            return isAccessCheckpoint;
+        case ObjectType.LAND:
+            let isAccessLand = await LandUsecase.isOpenLand(userId, objectId);
+            return isAccessLand;
+        case ObjectType.MAP:
+            let isAccessMap = await MapUsecase.isOpenMap(userId, objectId);
+            return isAccessMap;
+        default:
+            return null;
+    }
+}
 
 const ObjectUsecase = {
-    objectEagerLoading
+    getObjectDetail,
+    getObjectAccess
 };
 
 module.exports = ObjectUsecase;

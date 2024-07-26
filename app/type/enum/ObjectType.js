@@ -10,7 +10,7 @@ const ObjectTypeKeys = Object.keys(ObjectType);
 const getObjectType = (type) => {
     for (let key of ObjectTypeKeys) {
         if (type === ObjectType[key]) {
-            return key;
+            return type;
         }
     }
     return null;

@@ -1,45 +1,44 @@
 const db = require('../models');
-const ObjectUsecase = require('./object.usecase');
 const _ = require('lodash');
+const { checkpointEagerLoading } = require('../models/eagerLoading');
+const { isAccessLand, isOpenLand } = require('./land.usecase');
 
-const checkpoint_sort = {
-    model: db.Checkpoint,
-    order: [
-        ['ordinal', 'ASC'],
-    ],
-    separate: true,
-};
+const isCheckpointActive = async (checkpointId) => {
+    let checkpoint = await db.Checkpoint.findByPk(checkpointId, {
+        include: checkpointEagerLoading.checkpoint_object_active.include,
+    });
 
-const checkpoint_object_active = {
-    ...checkpoint_sort,
-    include: ObjectUsecase.objectEagerLoading.object_active,
-};
+    return checkpoint;
+}
 
-const checkpoint_object_all = {
-    ...checkpoint_sort,
-    include: ObjectUsecase.objectEagerLoading.object_all,
-};
+const isOpenCheckpoint = async (userId, checkpointId) => {
+    let checkpoint = await db.Checkpoint.findByPk(checkpointId);
 
-const checkpoint_object_active_location_assets = {
-    ...checkpoint_sort,
-    include: ObjectUsecase.objectEagerLoading.object_active_location_assets,
-};
+    let isLandAccess = isAccessLand(userId, checkpoint.landId);
+    if(!isLandAccess) { return false; }
 
-const checkpoint_object_all_location_assets = {
-    ...checkpoint_sort,
-    include: ObjectUsecase.objectEagerLoading.object_all_location_assets,
-};
+    let playerLandCheckpoint = await isLandAccess.getPlayerLandCheckpoint();
+    return playerLandCheckpoint;
+}   
 
-const checkpointEagerLoading = {
-    checkpoint_sort,
-    checkpoint_object_active,
-    checkpoint_object_all,
-    checkpoint_object_active_location_assets,
-    checkpoint_object_all_location_assets,
-};
+const isAccessCheckpoint = async (userId, checkpointId) => {
+    console.log('>>> isAccessCheckpoint <<<');
+
+    let checkpoint = await isCheckpointActive(checkpointId);
+    if(!checkpoint) { return null; }
+
+    console.log('\t>>> checkpoint is Active <<<');
+
+    let landId = checkpoint.landId;
+    let isLandOpen = await isOpenLand(userId, landId);
+
+    if(!isLandOpen) { return null; }
+    console.log('\t>>> isOpenLand <<<');
+    return isLandOpen;
+}
 
 const CheckpointUsecase = {
-    checkpointEagerLoading,
+    isAccessCheckpoint
 };
 
 module.exports = CheckpointUsecase;

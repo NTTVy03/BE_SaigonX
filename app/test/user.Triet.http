@@ -18,7 +18,7 @@ Content-Type: application/json
 
 {
     "username": "TrietHuynh",
-    "password": "$2a$10$TZ0HxkGlwJrg4gTHp1gadOuSAYL6NX/1iEBbTgSrNY7Fr.paVva9G"
+    "password": "$2a$10$Gn9AJsOfKOKDldFAeAkW1ew4Wp8DpX.6SG4btO3W4vWT8Q2Q3r3JC"
 }
 ### Token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
 ### Get User Infor
@@ -27,14 +27,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxN
 
 ### Get Player Data + Reward
 GET http://localhost:3000/api/user/player
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
-
-######## User Map
-GET http://localhost:3000/api/user/map
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
-
-###
-GET http://localhost:3000/api/user/map/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
 
 ######## Map
@@ -54,11 +46,61 @@ GET http://localhost:3000/api/map/9
 ########### Land
 GET http://localhost:3000/api/land/5
 
-########### RESULT
-POST http://localhost:3000/api/result
-Content-Type: application/json
+
+######## User Map
+GET http://localhost:3000/api/user/map
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
 
+###
+GET http://localhost:3000/api/user/map/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
+
+
+
+########### RESULT
+### Checkpoint
+POST http://localhost:3000/api/user/result/checkpoint/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMDIyNzc2LCJleHAiOjE3MjIxMDkxNzZ9.3CaLwYumDVcwOTDIkx3SNob5cqXfJjs3cRPCJbLZZY0
+
 {
-    "objectId": 
+    "checkpointId": 6,
+    "score": 100
 }
+
+### land
+POST http://localhost:3000/api/user/result/land/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMDIyNzc2LCJleHAiOjE3MjIxMDkxNzZ9.3CaLwYumDVcwOTDIkx3SNob5cqXfJjs3cRPCJbLZZY0
+
+{
+    "landId": 2,
+    "score": 1000
+}
+
+### map
+POST http://localhost:3000/api/user/result/map/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMDIyNzc2LCJleHAiOjE3MjIxMDkxNzZ9.3CaLwYumDVcwOTDIkx3SNob5cqXfJjs3cRPCJbLZZY0
+
+{
+    "mapId": 1,
+    "score": 100000
+}
+
+### game
+POST http://localhost:3000/api/user/result/game/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMDIyNzc2LCJleHAiOjE3MjIxMDkxNzZ9.3CaLwYumDVcwOTDIkx3SNob5cqXfJjs3cRPCJbLZZY0
+
+{
+
+}
+
+###
+GET http://localhost:3000/api/user/result/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMDIyNzc2LCJleHAiOjE3MjIxMDkxNzZ9.3CaLwYumDVcwOTDIkx3SNob5cqXfJjs3cRPCJbLZZY0
+
+###
+GET http://localhost:3000/api/user/result/checkpoint
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMDIyNzc2LCJleHAiOjE3MjIxMDkxNzZ9.3CaLwYumDVcwOTDIkx3SNob5cqXfJjs3cRPCJbLZZY0

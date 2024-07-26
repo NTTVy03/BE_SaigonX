@@ -6,6 +6,8 @@ const addUserResult = async (userId, objectId, result) => {
         ...result
     }
 
+    console.log('>>> result: ', userResult);
+
     const resultResponse = await db.Result.create(userResult);
 
     return resultResponse;

@@ -1,6 +1,8 @@
 const { ObjectTypeManager, ObjectType } = require('../type/enum/ObjectType');
+const { ObjectUsecase } = require('../usecase');
 
 const isValidObjectType = (req, res, next) => {
+    console.log('>>> isValidObjectType <<<');
     let type = req.params.objectType;
     let objectType = ObjectTypeManager.getObjectType(type.toLowerCase());
     if(objectType === null){
@@ -12,6 +14,8 @@ const isValidObjectType = (req, res, next) => {
 }
 
 const isObjectTypeCanUpdateResult = (req, res, next) => {
+    console.log('>>> isObjectTypeCanUpdateResult <<<');
+
     let objectType = req.objectType;
 
     if(objectType === ObjectType.GAME){
@@ -28,13 +32,27 @@ const isObjectTypeCanUpdateResult = (req, res, next) => {
  *    - If checkpoint => check if user open land.
  *    - If land       => check if user open map.
  */
-const isAccessObject = (req, res, next) => {
+const isAccessObject = async (req, res, next) => {
+    console.log('>>> isAccessObject <<<');
+
     let objectType = req.objectType;
     let objectId = req.params.objectId;
     let userId = req.userId;
 
-    // Check if user has access to the object
-    next();
+    try{
+        // Check if user has access to the object
+        let asccess = await ObjectUsecase.getObjectAccess(objectId, objectType, userId);
+    
+        if(!asccess){
+            return res.status(403).json({message: 'You do not have access to this object'});
+        }
+
+        next();
+    }catch(err){
+        console.log('Error: ', err);
+        return res.status(500).json({message: 'Internal server error'});
+    }
+
 }
 
 module.exports = {

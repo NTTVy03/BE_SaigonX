@@ -1,69 +1,54 @@
 const db = require('../models');
 const _ = require('lodash');
-const ObjectUsecase = require('./object.usecase');
-const CheckpointUsecase = require('./checkpoint.usecase');
+const { isAccessMap, isOpenMap } = require('./map.usecase');
+const { landEagerLoading, checkpointEagerLoading } = require('../models/eagerLoading');
 
+const isLandActive = async (landId) => {
+    let land = await db.Land.findByPk(landId, {
+        include: landEagerLoading.land_object_active.include
+    });
 
-const land_object_active = {
-    model: db.Land,
-    include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_active),
-};
+    return land;
+}
 
-const land_object_all = {
-    model: db.Land,
-    include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_all),
-};
+const isOpenLand = async (userId, landId) => {
+    let land = await isLandActive(landId);
+    if(!land) { return null; }
 
-const land_object_active_location_assets = {
-    model: db.Land,
-    include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_active_location_assets),
-};
+    let isMapOpen = await isOpenMap(userId, land.mapId);
+    if(!isMapOpen) { return null; }
 
-// console.log("land_object_active_location_assets", land_object_active_location_assets);  
+    let playerMapOpenId = isMapOpen.id;
+    let playerLandOpen = await db.PlayerLandOpen.findOne({
+        where: { landId, playerMapOpenId }
+    });
 
-const land_object_all_location_assets = {
-    model: db.Land,
-    include: _.cloneDeep(ObjectUsecase.objectEagerLoading.object_all_location_assets),
-};
+    return playerLandOpen;
+}
 
-const land_object_active_location_assets_and_checkpoint = {
-    model: db.Land,
-    include: [
-        _.cloneDeep(ObjectUsecase.objectEagerLoading.object_active_location_assets),
-        _.cloneDeep(CheckpointUsecase.checkpointEagerLoading.checkpoint_object_active_location_assets),
-    ]
-};
+const isAccessLand = async (userId, landId) => {
+    let land = await isOpenLand(userId, landId);
+    if(!land) { return null; }
+    let mapId = land.mapId;
 
-const land_object_all_location_assets_and_checkpoint = {
-    model: db.Land,
-    include: [
-        _.cloneDeep(ObjectUsecase.objectEagerLoading.object_all_location_assets),
-        _.cloneDeep(CheckpointUsecase.checkpointEagerLoading.checkpoint_object_all_location_assets),
-    ]
-};
-
-const landEagerLoading = {
-    land_object_active,
-    land_object_all,
-    land_object_active_location_assets,
-    land_object_all_location_assets,
-    land_object_active_location_assets_and_checkpoint,
-    land_object_all_location_assets_and_checkpoint,
-};
+    return isOpenMap(userId, mapId);
+}
 
 const getDetailActiveLandById = async (landId) => {
     let landActiveDetail = await db.Land.findByPk(landId, {
         include: [
             landEagerLoading.land_object_active_location_assets.include,
-            CheckpointUsecase.checkpointEagerLoading.checkpoint_object_active_location_assets
+            checkpointEagerLoading.checkpoint_object_active_location_assets
         ]
     });
 
     return landActiveDetail;
 }
 const LandUsecase = {
-    landEagerLoading,
-    getDetailActiveLandById
+    getDetailActiveLandById,
+    isAccessLand,
+    isLandActive,
+    isOpenLand,
 };
 
 module.exports = LandUsecase;
