@@ -227,25 +227,25 @@ async function initialSampleData() {
     }
   });
 
-// ---------------------------------------------------------
-// PLAYER_Map_OPENS
-const trietPlayerMapSaigon = await db.PlayerMapOpen.create({
-  playerId: trietAccount.id,
-  mapId: sgMap.id,
-});
-const trietPlayerMapHanoi = await db.PlayerMapOpen.create({
-  playerId: trietAccount.id,
-  mapId: haNoiMap.id,
-});
-const trietPlayerMapDaLat = await db.PlayerMapOpen.create({
-  playerId: trietAccount.id,
-  mapId: dalatMap.id,
-});
+  // ---------------------------------------------------------
+  // PLAYER_Map_OPENS
+  const trietPlayerMapSaigon = await db.PlayerMapOpen.create({
+    playerId: trietAccount.id,
+    mapId: sgMap.id,
+  });
+  const trietPlayerMapHanoi = await db.PlayerMapOpen.create({
+    playerId: trietAccount.id,
+    mapId: haNoiMap.id,
+  });
+  const trietPlayerMapDaLat = await db.PlayerMapOpen.create({
+    playerId: trietAccount.id,
+    mapId: dalatMap.id,
+  });
 
-const phatPlayerMap = await db.PlayerMapOpen.create({
-  playerId: phatAccount.id,
-  mapId: sgMap.id,
-})
+  const phatPlayerMapSaiGon = await db.PlayerMapOpen.create({
+    playerId: phatAccount.id,
+    mapId: sgMap.id,
+  })
 
 
   // ---------------------------------------------------------
@@ -263,7 +263,7 @@ const phatPlayerMap = await db.PlayerMapOpen.create({
   });
 
   const phatPlayerBenThanhLand = await db.PlayerLandOpen.create({
-    playerMapOpenId: trietPlayerMapSaigon.id,
+    playerMapOpenId: phatPlayerMapSaiGon.id,
     playerId: phatAccount.id,
     landId: benthanhLand.id,
   })
@@ -429,6 +429,9 @@ const phatPlayerMap = await db.PlayerMapOpen.create({
     rewardTypeId: 1,
     quantity: 500,
   });
+
+  // ---------------------------------------------------------
+  // PLAYER LAND CHECKPOINTS
 }
 
 module.exports = initialSampleData;
