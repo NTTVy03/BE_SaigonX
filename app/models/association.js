@@ -137,7 +137,7 @@ const createDBAssociation = (db) => {
     
     
     // [N] player - [N] land 
-    // create_N_N_association(db.Player, db.Land, db.PlayerLandOpen);
+    create_N_N_association(db.Player, db.Land, db.PlayerLandOpen);
     // db.Player.belongsToMany(db.Land, { through: db.PlayerLandOpen });
     // db.Land.belongsToMany(db.Player, { through: db.PlayerLandOpen });
     // db.Land.hasMany(db.PlayerLandOpen);

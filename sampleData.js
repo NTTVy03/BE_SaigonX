@@ -255,18 +255,18 @@ const phatPlayerMap = await db.PlayerMapOpen.create({
     playerId: trietAccount.id,
     landId: benthanhLand.id,
   });
+
   const trietPlayerDinhDoclapLand = await db.PlayerLandOpen.create({
+    playerMapOpenId: trietPlayerMapSaigon.id,
     playerId: trietAccount.id,
     landId: dinhdoclapLand.id,
-    playerMapOpenId: trietPlayerMapSaigon.id,
   });
 
   const phatPlayerBenThanhLand = await db.PlayerLandOpen.create({
+    playerMapOpenId: trietPlayerMapSaigon.id,
     playerId: phatAccount.id,
     landId: benthanhLand.id,
-    playerMapOpenId: trietPlayerMapSaigon.id,
   })
-
   
   // ---------------------------------------------------------
   // ASSET & OBJECT_ASSETS
