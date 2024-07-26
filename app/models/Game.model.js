@@ -4,7 +4,7 @@ const createModel = (sequelize, Sequelize) => {
   const Object    = require('./Object.model.js' ).createModel(sequelize, Sequelize);
 
   const Game = sequelize.define('game', {
-    id: {
+    checkpointId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         references: {

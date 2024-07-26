@@ -304,6 +304,57 @@ const phatPlayerMap = await db.PlayerMapOpen.create({
   dinhdoclapCheckpoint1.addAsset(asset4);
   // dinhdoclapCheckpoint2.addAsset(...);
   // dinhdoclapCheckpoint3.addAsset(...);
+
+  // ---------------------------------------------------------
+  // GAME TYPES
+  db.GameType.create({
+    code: 'hanh dong'
+  });
+
+  db.GameType.create({
+    code: 'nhap vai'
+  });
+
+  db.GameType.create({
+    code: 'mo phong'
+  });
+
+  // GAMES
+  db.Game.create({
+    code: 'ban xe tank',
+    isActive: 1,
+    gameTypeId: 2,
+    checkpointId: 6, // phong noi cac
+  });
+  
+  db.Game.create({
+    code: 'ghep anh',
+    isActive: 1,
+    gameTypeId: 3,
+    checkpointId: 3, // cua Dong
+  });
+
+  db.Game.create({
+    code: 'xe tank tong cong',
+    isActive: 1,
+    gameTypeId: 3,
+    checkpointId: 7, // phong tiep khach
+  });
+
+  db.Game.create({
+    code: 'ban dich',
+    isActive: 1,
+    gameTypeId: 2,
+    checkpointId: 4, // cua Tay
+  });
+
+  db.Game.create({
+    code: 'can bang trung',
+    isActive: 1,
+    gameTypeId: 1,
+    checkpointId: 8, // phong dai yen
+  });
+
 }
 
 module.exports = initialSampleData;
