@@ -12,6 +12,7 @@ const initialSampleData = require('./sampleData');
 const app = express();
 app.use(express.json());
 app.use(cors({}))
+app.use(cookieParser());  // for parsing cookies
 
 // ---------------------- DATABASE
 db.sequelize.sync({
@@ -42,7 +43,6 @@ const mapRouter = require("./app/routes/map.route"); // /api/map
 app.use("/api/map", mapRouter);
 
 const landRouter = require("./app/routes/land.route"); // /api/land
-const authJwt = require('./app/middleware/auth.middleware');
 app.use("/api/land", landRouter);
 
 // set port, listen for requests

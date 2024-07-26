@@ -1,4 +1,4 @@
-const ObjectType = require('../type/enum/ObjectType');
+const { ObjectType } = require('../type/enum/ObjectType');
 
 const createDBTrigger = (db) => {
     db.Object.addHook('afterCreate',  async (object, options) => {
