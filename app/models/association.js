@@ -1,4 +1,4 @@
-const { create_N_N_association, create_1_N_association, create_1_1_association } = require('./utils.js');
+const { create_N_N_association, create_1_N_association, create_1_1_association } = require('../utils/CreateAssociation');
 
 
 // ----------------- Association . association

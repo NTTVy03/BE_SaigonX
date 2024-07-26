@@ -1,4 +1,5 @@
 const db = require("./app/models");
+const { createGame } = require("./app/utils/CreateData");
 const bcrypt = require('bcryptjs');
 
 
@@ -307,25 +308,26 @@ async function initialSampleData() {
 
   // ---------------------------------------------------------
   // GAME TYPES
-  db.GameType.create({
+  const hanhDongType = await db.GameType.create({
     code: 'hanh dong'
   });
 
-  db.GameType.create({
+  const nhapVaiType = await db.GameType.create({
     code: 'nhap vai'
   });
 
-  db.GameType.create({
+  const moPhongType = await db.GameType.create({
     code: 'mo phong'
   });
 
   // GAMES
-  db.Game.create({
-    code: 'ban xe tank',
-    isActive: 1,
-    gameTypeId: 2,
-    checkpointId: 6, // phong noi cac
-  });
+  // db.Game.create({
+  //   code: 'ban xe tank',
+  //   isActive: 1,
+  //   gameTypeId: nhapVaiType.id,
+  //   checkpointId: 6, // phong noi cac
+  // });
+  const banXeTankGame = await createGame('ban xe tank', nhapVaiType.id, dinhdoclapCheckpoint1)
   
   db.Game.create({
     code: 'ghep anh',

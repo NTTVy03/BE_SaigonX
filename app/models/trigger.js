@@ -1,16 +1,18 @@
+const ObjectType = require('../type/enum/ObjectType');
+
 const createDBTrigger = (db) => {
     db.Object.addHook('afterCreate',  async (object, options) => {
         const type = object.dataValues['type'];
       
         switch (type) {
-          case 'map': {
+          case ObjectType.MAP: {
             await db.Map.create({
               id: object.id,
             });
       
             break;
           }
-          case 'land': {
+          case ObjectType.LAND: {
             await db.Land.create({
               id: object.id,
               mapId: options.mapId,
@@ -18,7 +20,7 @@ const createDBTrigger = (db) => {
       
             break;
           }
-          case 'checkpoint': {
+          case ObjectType.CHECKPOINT: {
             await db.Checkpoint.create({
               id: object.id,
               landId: options.landId,
@@ -27,6 +29,16 @@ const createDBTrigger = (db) => {
       
             break;
           }   
+
+          case ObjectType.GAME : {
+            await db.Game.create({
+              id: object.id,
+              gameTypeId: options.gameTypeId,
+              checkpointId: options.checkpointId,
+            });
+
+            break;
+          }
         }
       });
       
