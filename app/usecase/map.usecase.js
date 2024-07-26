@@ -3,6 +3,10 @@ const ObjectUsecase = require('./object.usecase');
 const LandUsecase = require('./land.usecase');
 const _ = require('lodash');
 
+const map_only = {
+    model: db.Map,
+}
+
 const map_object_active = {
     model: db.Map,
     include: ObjectUsecase.objectEagerLoading.object_active,
@@ -40,6 +44,7 @@ const map_object_all_location_assets_land_detail = {
 }
 
 const mapEagerLoading = {
+    map_only,
     map_object_active,
     map_object_all,
     map_object_active_location_assets,
@@ -91,11 +96,47 @@ const getMapDetailById = async (mapId) => {
     return map;
 }
 
+/** 
+ * * map if map is active  
+ * * null if map is not active
+ */
+const isActiveMap = async (mapId) => {
+    let map = await db.Map.findByPk(mapId, 
+        {
+            include: map_object_active.include
+        }
+    );
+
+    return map;
+}
+
+/** 
+ * * playerMapOpen if player open map  
+ * * null if player not open map
+ */
+const isOpenMap = async(userId, mapId) => {
+    let playerMapOpen = await db.PlayerMapOpen.findOne({
+        where: {
+            playerId: userId,
+            mapId: mapId
+        }
+    });
+
+    return playerMapOpen;
+}
+
+const isAccessMap = async (userId, mapId) => {
+    return await isOpenMap(userId, mapId);
+}
+
 const MapUsecase = {
+    isActiveMap,
     getAllActiveMaps,
     getAllMaps,
     getActiveMapDetailById,
     getMapDetailById,
+    isAccessMap,
+    isOpenMap,
     mapEagerLoading,
 };
 

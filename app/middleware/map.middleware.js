@@ -6,25 +6,23 @@ const MapUsecase = require('../usecase/map.usecase');
 /**
  * Check if map isActive
  */
-const isAccessMap = async (req, res, next) => {
+const isActiveMap = async (req, res, next) => {
   // console.log("isAccessMap: userId, mapId --> ", req.userId, req.params.mapId);
   let userId = req.userId;
   let mapId = req.params.mapId;
 
-  let map = await db.Map.findByPk(mapId, 
-    {
-      include: MapUsecase.mapEagerLoading.map_object_active.include
+  try{
+    let map = await MapUsecase.isActiveMap(mapId);
+    if(map){
+      req.map = map;
+      next();
+      return;
     }
-  );
 
-
-  if(!map) {
     res.status(403).send({ message: "You don't have permission to access this map" });
-    return;
+  } catch(err){
+    res.status(500).send({ message: err.message });
   }
-
-  req.map = map;
-  next();
 }
 
 /**
@@ -32,26 +30,28 @@ const isAccessMap = async (req, res, next) => {
  */
 const isOpenMap = async (req, res, next) => {
   let mapId = req.params.mapId;
+  let userId = req.userId;
+
 
   // check player_map_open
-  let playerMapOpen = await db.PlayerMapOpen.findOne({
-    where: {
-      playerId: req.userId,
-      mapId: mapId
+
+  try{
+    let playerMapOpen = await MapUsecase.isOpenMap(userId, mapId);
+  
+    if(playerMapOpen){
+      console.log("playerMapOpen --> ", playerMapOpen.dataValues);
+      req.playerMapOpen = playerMapOpen;
+      next();
+      return;
     }
-  });
 
-  if(playerMapOpen){
-    console.log("playerMapOpen --> ", playerMapOpen.dataValues);
-    req.playerMapOpen = playerMapOpen;
-    next();
-    return;
+    res.status(403).send({ message: "User haven't unlock this map" });
+  }catch(err){
+    res.status(500).send({ message: err.message });
   }
-
-  res.status(403).send({ message: "User haven't unlock this map" });
 }
 
 module.exports = {
-  isAccessMap,
+  isActiveMap,
   isOpenMap
 };
