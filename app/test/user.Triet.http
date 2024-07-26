@@ -49,3 +49,16 @@ GET http://localhost:3000/api/map/1
 
 ### 9: no active
 GET http://localhost:3000/api/map/9
+
+
+########### Land
+GET http://localhost:3000/api/land/5
+
+########### RESULT
+POST http://localhost:3000/api/result
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
+
+{
+    "objectId": 
+}

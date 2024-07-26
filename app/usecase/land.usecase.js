@@ -51,23 +51,19 @@ const landEagerLoading = {
     land_object_all_location_assets_and_checkpoint,
 };
 
-const getDetailActiveLandById = async (req, res) => {
-    let landId = req.params.landId;
+const getDetailActiveLandById = async (landId) => {
     let landActiveDetail = await db.Land.findByPk(landId, {
         include: [
             landEagerLoading.land_object_active_location_assets.include,
-            {
-                model: db.Checkpoint,
-                order: [
-                    'ordinal', 'ASC'
-                ],
-
-            }
+            CheckpointUsecase.checkpointEagerLoading.checkpoint_object_active_location_assets
         ]
     });
+
+    return landActiveDetail;
 }
 const LandUsecase = {
     landEagerLoading,
+    getDetailActiveLandById
 };
 
 module.exports = LandUsecase;

@@ -5,7 +5,7 @@ const _ = require('lodash');
 const checkpoint_sort = {
     model: db.Checkpoint,
     order: [
-        'ordinal', 'ASC'
+        ['ordinal', 'ASC'],
     ],
     separate: true,
 };
