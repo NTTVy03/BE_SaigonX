@@ -431,8 +431,45 @@ async function initialSampleData() {
 
   // ---------------------------------------------------------
   // PLAYER LAND CHECKPOINTS
+
+  // Triet passed checkpoint 1 of benthanh Land
+  const triet_benthanhCheckpoint1 = await db.PlayerLandCheckpoint.create({
+    score: 100,
+    playerLandOpenId: trietPlayerBenThanhLand.id,
+    checkpointId: benthanhCheckpoint1.id,
+  })
+
+  // Triet pass dinhdoclap Land
+  const triet_dinhdoclapCheckpoint1 = await db.PlayerLandCheckpoint.create({
+    score: 80,
+    playerLandOpenId: trietPlayerDinhDoclapLand.id,
+    checkpointId: dinhdoclapCheckpoint1.id,
+  })
+
+  const triet_dinhdoclapCheckpoint2 = await db.PlayerLandCheckpoint.create({
+    score: 100,
+    playerLandOpenId: trietPlayerDinhDoclapLand.id,
+    checkpointId: dinhdoclapCheckpoint2.id,
+  })
+
+  const triet_dinhdoclapCheckpoint3 = await db.PlayerLandCheckpoint.create({
+    score: 50,
+    playerLandOpenId: trietPlayerDinhDoclapLand.id,
+    checkpointId: dinhdoclapCheckpoint3.id,
+  })
+
+  // Phat pass benthanh Land
+  const phat_benthanhCheckpoint1 = await db.PlayerLandCheckpoint.create({
+    score: 101,
+    playerLandOpenId: phatPlayerBenThanhLand.id,
+    checkpointId: benthanhCheckpoint1.id,
+  })
+
+  const phat_benthanhCheckpoint2 = await db.PlayerLandCheckpoint.create({
+    score: 65,
+    playerLandOpenId: phatPlayerBenThanhLand.id,
+    checkpointId: benthanhCheckpoint2.id,
+  })
 }
 
 module.exports = initialSampleData;
-
-
