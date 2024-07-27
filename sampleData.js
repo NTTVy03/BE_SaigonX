@@ -367,66 +367,67 @@ async function initialSampleData() {
     rewardTypeId: daQuyRewardType.id,
   })
 
-  // // OBJECT REWARDS
-  // db.ObjectReward.create({
-  //   objectId: 1,
-  //   rewardTypeId: 1,
-  //   quantity: 100,
-  // });
+  // ---------------------------------------------------------
+  // OBJECT REWARDS
+
+  // saigon Map rewards
+  const kiem_sgMap_reward = await db.ObjectReward.create({
+    objectId: sgMap.id,
+    rewardId: kiemReward.id,
+    quantity: 5,
+  });
   
-  // db.ObjectReward.create({
-  //   objectId: 2,
-  //   rewardTypeId: 2,
-  //   quantity: 50,
-  // });
+  const daxanh_sgMap_reward = await db.ObjectReward.create({
+    objectId: sgMap.id,
+    rewardId: daXanhReward.id,
+    quantity: 10,
+  });
+
+  // benthanh Land rewards
+  const sung_benthanhLand_reward = await db.ObjectReward.create({
+    objectId: benthanhLand.id,
+    rewardId: sungReward.id,
+    quantity: 3,
+  });
   
-  // db.ObjectReward.create({
-  //   objectId: 3,
-  //   rewardTypeId: 3,
-  //   quantity: 10,
-  // });
+  // benthanh Checkpoints rewards
+  const dado_benthanhCheckoint1_reward = await db.ObjectReward.create({
+    objectId: benthanhCheckpoint1.id,
+    rewardId: daDoReward.id,
+    quantity: 1,
+  });
 
-  // db.ObjectReward.create({
-  //   objectId: 4,
-  //   rewardTypeId: 3,
-  //   quantity: 25,
-  // });
+  const daxanh_benthanhCheckoint2_reward = await db.ObjectReward.create({
+    objectId: benthanhCheckpoint2.id,
+    rewardId: daXanhReward.id,
+    quantity: 1,
+  });
 
-  // db.ObjectReward.create({
-  //   objectId: 5,
-  //   rewardTypeId: 2,
-  //   quantity: 70,
-  // });
+  // dinhdoclap Land rewards
+  const kiem_dinhdoclapLand_reward = await db.ObjectReward.create({
+    objectId: dinhdoclapLand.id,
+    rewardId: kiemReward.id,
+    quantity: 2,
+  });
+  
+  // dinhdoclap Checkpoints rewards
+  const sung_dinhdoclapCheckoint1_reward = await db.ObjectReward.create({
+    objectId: dinhdoclapCheckpoint1.id,
+    rewardId: sungReward.id,
+    quantity: 1,
+  });
 
-  // db.ObjectReward.create({
-  //   objectId: 6,
-  //   rewardTypeId: 3,
-  //   quantity: 15,
-  // });
+  const dado_dinhdoclapCheckoint2_reward = await db.ObjectReward.create({
+    objectId: dinhdoclapCheckpoint2.id,
+    rewardId: daDoReward.id,
+    quantity: 2,
+  });
 
-  // db.ObjectReward.create({
-  //   objectId: 7,
-  //   rewardTypeId: 3,
-  //   quantity: 30,
-  // });
-
-  // db.ObjectReward.create({
-  //   objectId: 8,
-  //   rewardTypeId: 3,
-  //   quantity: 35,
-  // });
-
-  // db.ObjectReward.create({
-  //   objectId: 9,
-  //   rewardTypeId: 1,
-  //   quantity: 200,
-  // });
-
-  // db.ObjectReward.create({
-  //   objectId: 10,
-  //   rewardTypeId: 1,
-  //   quantity: 500,
-  // });
+  const daxanh_dinhdoclapCheckoint3_reward = await db.ObjectReward.create({
+    objectId: dinhdoclapCheckpoint3.id,
+    rewardId: daXanhReward.id,
+    quantity: 1,
+  });
 
   // ---------------------------------------------------------
   // PLAYER LAND CHECKPOINTS
