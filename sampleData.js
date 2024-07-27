@@ -334,17 +334,16 @@ async function initialSampleData() {
 
   // ---------------------------------------------------------
   // REWARD TYPES
-  // db.RewardType.create({
-  //   code: 'tien' // map
-  // });
+  const tienRewardType = db.RewardType.create({
+    code: 'vu khi'
+  });
 
-  // db.RewardType.create({
-  //   code: 'vang' // land
-  // });
+  db.RewardType.create({
+    code: 'da quy'
+  });
 
-  // db.RewardType.create({
-  //   code: 'mau' // checkpoint
-  // });
+  // REWARDS
+  
 
   // // OBJECT REWARDS
   // db.ObjectReward.create({

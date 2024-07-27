@@ -2,10 +2,10 @@ const NAME = "Reward";
 
 const createModel = (sequelize, Sequelize) => {
   const Reward = sequelize.define('reward', {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-    },
+    // id: {
+    //     type: Sequelize.INTEGER,
+    //     primaryKey: true,
+    // },
     code: {
         type: Sequelize.STRING,
         allowNull: false,
