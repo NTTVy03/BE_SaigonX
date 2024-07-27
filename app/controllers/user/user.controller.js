@@ -19,6 +19,35 @@ const getUserInfo = async (req, res) => {
 };
 
 /**
+ * - Update user avatar
+ */
+const updateUserAvatar = async (req, res) => {
+    let userId = req.userId;
+    let newAvatar = req.body.avatar;
+
+    if (!newAvatar) {
+        res.status(400).json({ message: "Avatar cannot be empty!" });
+        return;
+    }
+
+    try {
+        const userInfo = await UserInfo.findByPk(userId);
+
+        if (!userInfo) {
+            res.status(404).json({ message: "User not found!" });
+            return;
+        }
+
+        await userInfo.update({ avatar: newAvatar });
+        await userInfo.save();
+
+        res.status(200).json({message: "Update avatar successfully"});
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+/**
  * Get user player data
  *    - score
  *    - reward (sau)
@@ -49,6 +78,7 @@ const getPlayerData = async (req, res) => {
 
 const UserAccountController = {
     getUserInfo,
+    updateUserAvatar,
     getPlayerData
 };
 
