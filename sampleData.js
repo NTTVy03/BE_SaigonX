@@ -334,16 +334,38 @@ async function initialSampleData() {
 
   // ---------------------------------------------------------
   // REWARD TYPES
-  const tienRewardType = db.RewardType.create({
+  const vuKhiRewardType = await db.RewardType.create({
     code: 'vu khi'
   });
 
-  db.RewardType.create({
+  const daQuyRewardType = await db.RewardType.create({
     code: 'da quy'
   });
 
   // REWARDS
-  
+  const kiemReward = await db.Reward.create({
+    code: 'kiem',
+    scoreValue: 100,
+    rewardTypeId: vuKhiRewardType.id,
+  })
+
+  const sungReward = await db.Reward.create({
+    code: 'sung',
+    scoreValue: 150,
+    rewardTypeId: vuKhiRewardType.id,
+  })
+
+  const daDoReward = await db.Reward.create({
+    code: 'da do',
+    scoreValue: 70,
+    rewardTypeId: daQuyRewardType.id,
+  })
+
+  const daXanhReward = await db.Reward.create({
+    code: 'da xanh',
+    scoreValue: 90,
+    rewardTypeId: daQuyRewardType.id,
+  })
 
   // // OBJECT REWARDS
   // db.ObjectReward.create({
