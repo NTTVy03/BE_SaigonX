@@ -12,10 +12,11 @@ async function initialSampleData() {
   // #### Acount 1: Triet
   const trietAccount = await db.UserAccount.create({
     username: 'TrietHuynh',
-    password: await bcrypt.hash('1234567890', 10),
+    // password: await bcrypt.hash('1234567890', 10),
+    password: 'c+qOaBlxvL59hjs92YClUH1/Lpmfi7q5U/QFByPX326dJbAfT/3Ee25x0n4/rbwj4ADibI8zH66ObZfHzOJdgQ==',
     fullName: 'Huynh Cong Triet'
   });
-
+  
   const trietInfo = await db.UserInfo.create({
     id: trietAccount.id,
     avatar: 'https://images.pexels.com/photos/25288209/pexels-photo-25288209/free-photo-of-a-building-with-two-windows-and-a-blue-sky.jpeg'
@@ -38,7 +39,8 @@ async function initialSampleData() {
   // #### Acount 2: Phat
   const phatAccount = await db.UserAccount.create({
     username: 'PhatCao',
-    password: await bcrypt.hash('1234567890', 10),
+    // password: await bcrypt.hash('1234567890', 10),
+    password: 'c+qOaBlxvL59hjs92YClUH1/Lpmfi7q5U/QFByPX326dJbAfT/3Ee25x0n4/rbwj4ADibI8zH66ObZfHzOJdgQ==',
     fullName: 'Cao Quang Phat',
     email: 'quangphat18ti@gmail.com'
   });
