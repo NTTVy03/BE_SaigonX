@@ -8,10 +8,10 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
     dialecctOptions: {
-      // ssl: {
-      //   rejectUnauthorized: false,
-      //   require: true,
-      // }
+      ssl: {
+        rejectUnauthorized: false,
+        require: true,
+      }
     }
   }
 };

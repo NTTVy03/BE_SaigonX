@@ -1,7 +1,14 @@
 const { Sequelize, InvalidConnectionError } = require('sequelize');
 const config = require('../config/database.config.js')['development'];
+require('dotenv').config();
 
-const sequelize = new Sequelize(config.database, config.username, config.password, {
+// const sequelize = new Sequelize(config.database, config.username, config.password, {
+//   host: config.host,
+//   dialect: config.dialect,
+//   logging: false,
+// });
+
+const sequelize = new Sequelize(process.env.DB_EXT_URI, {
   host: config.host,
   dialect: config.dialect,
   logging: false,
