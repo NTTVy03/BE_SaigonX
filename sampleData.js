@@ -329,7 +329,7 @@ async function initialSampleData() {
   // });
 
   
-  // const banXeTankGame = await createGame('ban xe tank', nhapVaiType.id, dinhdoclapCheckpoint1)
+  const banXeTankGame = await createGame('ban xe tank', nhapVaiType.id, dinhdoclapCheckpoint1.id)
   
   // db.Game.create({
   //   code: 'ghep anh',
