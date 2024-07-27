@@ -321,43 +321,16 @@ async function initialSampleData() {
   });
 
   // GAMES
-  // db.Game.create({
-  //   code: 'ban xe tank',
-  //   isActive: 1,
-  //   gameTypeId: nhapVaiType.id,
-  //   checkpointId: 6, // phong noi cac
-  // });
 
-  
   const banXeTankGame = await createGame('ban xe tank', nhapVaiType.id, dinhdoclapCheckpoint1.id)
   
-  // db.Game.create({
-  //   code: 'ghep anh',
-  //   isActive: 1,
-  //   gameTypeId: 3,
-  //   checkpointId: 3, // cua Dong
-  // });
+  const ghepAnhGame = await createGame('ghep anh', moPhongType.id, benthanhCheckpoint1.id)
+  
+  const xeTankTongCongGame = await createGame('xe tank tong cong', moPhongType.id, dinhdoclapCheckpoint2.id)
+  
+  const banDichGame = await createGame('ban dich', nhapVaiType.id, benthanhCheckpoint2.id)
 
-  // db.Game.create({
-  //   code: 'xe tank tong cong',
-  //   isActive: 1,
-  //   gameTypeId: 3,
-  //   checkpointId: 7, // phong tiep khach
-  // });
-
-  // db.Game.create({
-  //   code: 'ban dich',
-  //   isActive: 1,
-  //   gameTypeId: 2,
-  //   checkpointId: 4, // cua Tay
-  // });
-
-  // db.Game.create({
-  //   code: 'can bang trung',
-  //   isActive: 1,
-  //   gameTypeId: 1,
-  //   checkpointId: 8, // phong dai yen
-  // });
+  const canBaangTrungGame = await createGame('can bang trung', moPhongType.id, dinhdoclapCheckpoint3.id)
 
   // ---------------------------------------------------------
   // REWARD TYPES

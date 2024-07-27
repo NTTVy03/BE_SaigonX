@@ -18,10 +18,10 @@ const createModel = (sequelize, Sequelize) => {
     //     allowNull: false,
     //     unique: true,
     // },
-    isActive: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-    },
+    // isActive: {
+    //     type: Sequelize.BOOLEAN,
+    //     defaultValue: false,
+    // },
   });
   
   return Game;
