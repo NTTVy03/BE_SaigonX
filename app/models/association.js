@@ -18,14 +18,8 @@ const createDBAssociation = (db) => {
     // [1] land -- [1] object 
     create_1_1_association(db.Object, db.Land, 'id');
     
-    // [1] map -- [N] land 
-    create_1_N_association(db.Map, db.Land, 'mapId');
-    
     // [1] checkpoint -- [1] object 
     create_1_1_association(db.Object, db.Checkpoint, 'id');
-    
-    // [1] land -- [N] checkpoint
-    create_1_N_association(db.Land, db.Checkpoint, 'landId');
     
     // [1] location -- [1] object
     create_1_1_association(db.Object, db.Location, 'id');
