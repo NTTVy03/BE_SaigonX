@@ -12,12 +12,12 @@ const createModel = (sequelize, Sequelize) => {
       allowNull: false,
       unique: true,
     },
-    // parent_id: association 1-1 to parent object
-    num_child: {
+    // [DONE] parentId: association 1-1 to parent object
+    numChild: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
     },
-    // location_id: association 1-1 to Location
+    // [DONE] locationId: association 1-1 to Location
     jsonData: {
       type: Sequelize.JSON,
     },

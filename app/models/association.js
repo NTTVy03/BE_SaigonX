@@ -3,6 +3,10 @@ const { create_N_N_association, create_1_N_association, create_1_1_association }
 
 // ----------------- Association . association
 const createDBAssociation = (db) => {
+    // new object associations - 29/7/2024
+    create_1_1_association(db.Object, db.Object, 'parentId');
+    create_1_1_association(db.Object, db.Location, 'id');
+    
     // [1] user_account -- [1] user_info
     create_1_1_association(db.UserAccount, db.UserInfo, 'id');
     // db.UserAccount.hasOne(db.UserInfo, { 
@@ -107,18 +111,6 @@ const createDBAssociation = (db) => {
     // });
     // db.Checkpoint.belongsTo(db.Land, {
     //   foreignKey: 'landId',
-    // });
-    
-    // [1] location -- [1] object
-    create_1_1_association(db.Object, db.Location, 'id');
-    // db.Object.hasOne(db.Location, {
-    //   allowNull: false,
-    //   foreignKey: 'id',
-    //   // onDelete: 'RESTRICT',
-    //   // onUpdate: 'RESTRICT',
-    // });
-    // db.Location.belongsTo(db.Object, {
-    //   foreignKey: 'id',
     // });
     
     // [N] player - [N] map 
