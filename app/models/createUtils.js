@@ -1,5 +1,3 @@
-const db = require('./index');
-
 const initialUtilsWithdb = (db) => {
     const createMap = async (info) => {
         if(!info.id) { throw new Error('Map id is required'); }

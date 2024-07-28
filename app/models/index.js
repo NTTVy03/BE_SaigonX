@@ -45,6 +45,7 @@ db.PlayerObjectOpen     = require('./PlayerObjectOpen.model.js').createModel(seq
 require('./association.js')(db);
 
 db.createUtils =  require('./createUtils.js').initialUtilsWithdb(db);
+db.triggerUtils = require('./triggerUtils.js').initialUtilsWithdb(db);
 
 // --------------------- TRIGGER
 
