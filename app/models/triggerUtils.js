@@ -1,31 +1,31 @@
-const db = require("../models");
+const initialUtilsWithdb = (db) => {
+  const cal_score_from_rewards = async (objectId) => {
+    const objectRewards = await db.ObjectReward.findAll({
+      where: { objectId },
+      include: { model: db.Reward },
+    });
 
-const cal_score_from_rewards = async (objectId) => {
-    try {
-      const objectRewards = await db.ObjectReward.findAll({
-        where: { objectId },
-      });
-  
-      let scoreFromRewards = 0;
-  
-      for (const objectReward of objectRewards) {
-        const quantity = objectReward.quantity;
-        const rewardId = objectReward.rewardId;
-        const reward = await db.Reward.findByPk(rewardId); // Await this call
-  
-        if (reward) {
-          scoreFromRewards += reward.scoreValue * quantity; // Consider quantity in score calculation
-        }
+    console.log('objectRewards:', objectRewards);
+
+    let scoreFromRewards = 0;
+
+    for (const objectReward of objectRewards) {
+      const quantity = objectReward.quantity;  // warning: dataValues
+      const reward = objectReward.reward; 
+
+      if (reward) {
+        scoreFromRewards += reward.scoreValue * quantity; // Consider quantity in score calculation
       }
-  
-      return scoreFromRewards;
-    } catch (error) {
-      console.error('Error calculating score from rewards:', error);
-      throw error;
     }
-  };
-  
 
+    return scoreFromRewards;
+  };
+
+  return {
+      cal_score_from_rewards,
+  }
+}
+  
 module.exports = {
-  cal_score_from_rewards,
-};
+  initialUtilsWithdb
+} 

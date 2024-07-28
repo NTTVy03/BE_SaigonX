@@ -3,6 +3,8 @@ const NAME = "PlayerObjectOpen";
 // this table is created by N-N association
 // between Player and Object
 const createModel = (sequelize, Sequelize) => {
+  const Object = require("./Object.model").createModel(sequelize,Sequelize);
+
   const PlayerObjectOpen = sequelize.define('player_object_open', {
     id: {
       // id: NOT auto field because of the N-N associations 
@@ -11,6 +13,18 @@ const createModel = (sequelize, Sequelize) => {
       autoIncrement: true
     },
     // parentId: parent of this PlayerObjectOpen (eg: player_map_open is parent of player_land_open)
+    parentId: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      validate: {
+        async checkParentId(value) {
+            const object = await Object.findByPk(this.objectId);
+            if (object.type !== 'map' && (value === null || value === undefined)) {
+                throw new Error('parentId cannot be null if PlayerObjectOpen is not for a map');
+            }
+        }
+      }
+    },
     // objectId: association N-N player-object
     // playerId: association N-N player-object
     isPassed: {

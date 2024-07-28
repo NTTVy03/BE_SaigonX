@@ -1,5 +1,4 @@
 const { ObjectType } = require("../type/enum/ObjectType");
-const { cal_score_from_rewards } = require("./triggerUtils");
 
 const createDBTrigger = (db) => {
     const { createMap, createLand, createCheckpoint, createGame } = db.createUtils;
@@ -46,30 +45,39 @@ const createDBTrigger = (db) => {
   
   // Trigger: PlayerObjectOpen.isPass (false --> true)
   db.PlayerObjectOpen.addHook(
-    "afterUpdate",
+    "afterCreate",
     async (playerObjectOpen, options) => {
+      const { cal_score_from_rewards } = db.triggerUtils;
       // check if isPassed changed from false to true
       if (playerObjectOpen.changed("isPassed")) {
         const previousValue = playerObjectOpen._previousDataValues.isPassed;
         const currentValue = playerObjectOpen.isPassed;
 
         if (previousValue === false && currentValue === true) {
+          console.log("\t isPassed changed from false to true");
+          console.log("playerObjectOpen change isPassed: ", playerObjectOpen);
+
           try {
             // receive rewards - @TODO: Dummy implementation
 
             // calculate score
             const newScore =
               playerObjectOpen.score +
-              cal_score_from_rewards(playerObjectOpen.objectId);
+              await cal_score_from_rewards(playerObjectOpen.objectId) + 1;
 
+            console.log("newScore: ", newScore);
             // update PlayerObjectOpen.score
             playerObjectOpen.score = newScore;
+            // playerObjectOpen.setScore(newScore);
             await playerObjectOpen.save(); // Await save operation
 
             // increase parent (Player_Object_Open) process
+            if(!playerObjectOpen.parentId) return;
             const parent = await db.PlayerObjectOpen.findByPk(
               playerObjectOpen.parentId
             );
+
+            if(!parent) return;
             await parent.increment("process");
 
             // change parent isPass if parent process equals parent numChild
@@ -100,6 +108,7 @@ const createDBTrigger = (db) => {
     "afterUpdate",
     async (playerObjectOpen, options) => {
       if (playerObjectOpen.changed("score")) {
+        console.log("PlayerObjectOpen score changed");
         const previousValue = playerObjectOpen._previousDataValues.score;
         const currentValue = playerObjectOpen.score;
 
