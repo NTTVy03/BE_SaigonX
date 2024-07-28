@@ -11,6 +11,11 @@ const createModel = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+
+        validate: {
+          notNull: { msg: 'Code cannot be null'},
+          notEmpty: { msg: 'Code cannot be empty' },
+        }
     },
   });
   

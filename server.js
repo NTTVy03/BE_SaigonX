@@ -21,7 +21,7 @@ db.sequelize.sync({
 })
 .then(() => {
   console.log("Synced db.");
-  // initialSampleData();
+  initialSampleData();
 })
 .catch((err) => {
   console.log("Failed to sync db: " + err.message);

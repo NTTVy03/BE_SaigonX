@@ -76,9 +76,7 @@ async function initialSampleData() {
       type: 'land',
       code: "Cho Ben Thanh",
       isActive: true,
-    },
-    {
-      mapId: sgMap.id
+      parentId: sgMap.id,
     }
   );
 
@@ -87,9 +85,9 @@ async function initialSampleData() {
       type: 'checkpoint',
       code: "Cua Dong",
       isActive: true,
+      parentId: benthanhLand.id,
     },
     {
-      landId: benthanhLand.id,
       ordinal: 1,
     }
   );
@@ -99,9 +97,9 @@ async function initialSampleData() {
       type: 'checkpoint',
       code: "Cua Tay",
       isActive: true,
+      parentId: benthanhLand.id,
     },
     {
-      landId: benthanhLand.id,
       ordinal: 2,
     }
   );
@@ -112,9 +110,7 @@ async function initialSampleData() {
       type: 'land',
       code: "Dinh Doc Lap",
       isActive: true,
-    },
-    {
-      mapId: sgMap.id
+      parentId: sgMap.id,
     }
   )
 
@@ -123,9 +119,9 @@ async function initialSampleData() {
       type: 'checkpoint',
       code: "Phong hop noi cac",
       isActive: true,
+      parentId: dinhdoclapLand.id,
     },
     {
-      landId: dinhdoclapLand.id,
       ordinal: 1,
     }
   );
@@ -135,9 +131,9 @@ async function initialSampleData() {
       type: 'checkpoint',
       code: "Phong tiep khach",
       isActive: true,
+      parentId: dinhdoclapLand.id,
     },
     {
-      landId: dinhdoclapLand.id,
       ordinal: 2,
     }
   );
@@ -147,9 +143,9 @@ async function initialSampleData() {
       type: 'checkpoint',
       code: "Phong dai yen",
       isActive: true,
+      parentId: dinhdoclapLand.id,
     },
     {
-      landId: dinhdoclapLand.id,
       ordinal: 3,
     }
   );
