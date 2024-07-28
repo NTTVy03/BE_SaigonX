@@ -38,7 +38,6 @@ db.LeaderboardRecord   = require('./LeaderboardRecord.model.js' ).createModel(se
 db.Reward   = require('./Reward.model.js' ).createModel(sequelize, Sequelize);
 db.RewardType   = require('./RewardType.model.js' ).createModel(sequelize, Sequelize);
 db.ObjectReward   = require('./ObjectReward.model.js' ).createModel(sequelize, Sequelize);
-db.Result   = require('./Result.model.js' ).createModel(sequelize, Sequelize);
 // ----------------- Association
 
 require('./association.js')(db);
