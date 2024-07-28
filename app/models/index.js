@@ -1,4 +1,4 @@
-const { Sequelize, InvalidConnectionError } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const config = require('../config/database.config.js')['development'];
 require('dotenv').config();
 
@@ -19,7 +19,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // Add tables to database here
-// db.users       = require('./user.model.js')(sequelize, Sequelize);
 db.UserAccount    = require('./UserAccount.model.js'  ).createModel(sequelize, Sequelize);
 db.UserInfo       = require('./UserInfo.model.js'     ).createModel(sequelize, Sequelize);
 db.Role           = require('./Role.model.js'         ).createModel(sequelize, Sequelize);
@@ -37,7 +36,6 @@ db.PlayerLandCheckpoint = require('./PlayerLandCheckpoint.model.js').createModel
 db.ObjectAssets   = require('./ObjectAssets.model.js' ).createModel(sequelize, Sequelize);
 db.GameType   = require('./GameType.model.js' ).createModel(sequelize, Sequelize);
 db.Game   = require('./Game.model.js' ).createModel(sequelize, Sequelize);
-db.GameStatus   = require('./GameStatus.model.js' ).createModel(sequelize, Sequelize);
 db.GameLeaderboard   = require('./GameLeaderboard.model.js' ).createModel(sequelize, Sequelize);
 db.LeaderboardRecord   = require('./LeaderboardRecord.model.js' ).createModel(sequelize, Sequelize);
 db.Reward   = require('./Reward.model.js' ).createModel(sequelize, Sequelize);
