@@ -16,7 +16,7 @@ app.use(cookieParser());  // for parsing cookies
 
 // ---------------------- DATABASE
 db.sequelize.sync({
-    // force: true
+    force: true
     // alter: true    // alter: true will update the table schema
 })
 .then(() => {

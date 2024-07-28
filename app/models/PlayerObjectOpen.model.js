@@ -4,10 +4,15 @@ const NAME = "PlayerObjectOpen";
 // between Player and Object
 const createModel = (sequelize, Sequelize) => {
   const PlayerObjectOpen = sequelize.define('player_object_open', {
-    // id: auto field
+    id: {
+      // id: NOT auto field because of the N-N associations 
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     // parentId: parent of this PlayerObjectOpen (eg: player_map_open is parent of player_land_open)
     // objectId: association N-N player-object
-    // player_id: association N-N player-object
+    // playerId: association N-N player-object
     isPassed: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

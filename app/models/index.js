@@ -30,6 +30,7 @@ db.Checkpoint           = require('./Checkpoint.model.js'   ).createModel(sequel
 db.Location             = require('./Location.model.js'     ).createModel(sequelize, Sequelize);
 db.Player               = require('./Player.model.js'       ).createModel(sequelize, Sequelize);
 db.Land                 = require('./Land.model.js'         ).createModel(sequelize, Sequelize);
+db.PlayerObjectOpen        = require('./PlayerObjectOpen.model.js').createModel(sequelize, Sequelize);
 db.PlayerMapOpen        = require('./PlayerMapOpen.model.js').createModel(sequelize, Sequelize);
 db.PlayerLandOpen       = require('./PlayerLandOpen.model.js').createModel(sequelize, Sequelize);
 db.PlayerMapData        = require('./PlayerMapData.model.js').createModel(sequelize, Sequelize);
