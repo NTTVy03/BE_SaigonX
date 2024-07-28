@@ -34,10 +34,9 @@ const createDBAssociation = (db) => {
     create_1_N_association(db.GameLeaderboard, db.LeaderboardRecord, 'gameLeaderboardId');
 
     create_1_N_association(db.RewardType, db.Reward, 'rewardTypeId');
-
-    // create_1_N_association(db.Object, db.ObjectReward, 'objectId');
-
+    
     create_N_N_association(db.Object, db.Reward, db.ObjectReward);
+    create_N_N_association(db.Player, db.Reward, db.PlayerReward);
     console.log(">>> Create DB association <<<");
 }
 
