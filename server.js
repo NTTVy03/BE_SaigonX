@@ -16,12 +16,12 @@ app.use(cookieParser());  // for parsing cookies
 
 // ---------------------- DATABASE
 db.sequelize.sync({
-    force: true
+    // force: true
     // alter: true    // alter: true will update the table schema
 })
 .then(() => {
   console.log("Synced db.");
-  initialSampleData();
+  // initialSampleData();
 })
 .catch((err) => {
   console.log("Failed to sync db: " + err.message);
