@@ -3,6 +3,7 @@ const { ObjectType } = require('../type/enum/ObjectType');
 const createDBTrigger = (db) => {
     const { createMap, createLand, createCheckpoint, createGame } = db.createUtils;
     db.Object.addHook('afterCreate',  async (object, options) => {
+      const createChildObject = async () => {
         const type = object.dataValues['type'];
       
         switch (type) {
@@ -24,7 +25,22 @@ const createDBTrigger = (db) => {
             break;
           }
         }
-      });
+      }
+
+      const addNumChild = async() => {
+        const parentId = object.dataValues['parentId'];
+        if(!parentId) return;
+
+        const parentObject = await db.Object.findByPk(parentId);
+        if (parentObject) {
+          parentObject.increment('numChild');
+        }
+      }
+
+      await createChildObject();
+      await addNumChild();
+    });
+        
       
     // Increase num_land in map when create a land
     // db.Land.addHook('afterCreate', async (land, options) => {
