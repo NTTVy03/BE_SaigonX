@@ -228,44 +228,56 @@ async function initialSampleData() {
 
   // ---------------------------------------------------------
   // PLAYER_Map_OPENS
-  // const trietPlayerMapSaigon = await db.PlayerMapOpen.create({
-  //   playerId: trietAccount.id,
-  //   mapId: sgMap.id,
-  // });
-  // const trietPlayerMapHanoi = await db.PlayerMapOpen.create({
-  //   playerId: trietAccount.id,
-  //   mapId: haNoiMap.id,
-  // });
-  // const trietPlayerMapDaLat = await db.PlayerMapOpen.create({
-  //   playerId: trietAccount.id,
-  //   mapId: dalatMap.id,
-  // });
+  const trietPlayerMapSaigon = await db.PlayerObjectOpen.create({
+    playerId: trietAccount.id,
+    objectId: sgMap.id,
+  });
+  const trietPlayerMapHanoi = await db.PlayerObjectOpen.create({
+    playerId: trietAccount.id,
+    objectId: haNoiMap.id,
+  });
+  const trietPlayerMapDaLat = await db.PlayerObjectOpen.create({
+    playerId: trietAccount.id,
+    objectId: dalatMap.id,
+  });
 
-  // const phatPlayerMapSaiGon = await db.PlayerMapOpen.create({
-  //   playerId: phatAccount.id,
-  //   mapId: sgMap.id,
-  // })
+  const phatPlayerMapSaiGon = await db.PlayerObjectOpen.create({
+    playerId: phatAccount.id,
+    objectId: sgMap.id,
+  })
 
 
   // ---------------------------------------------------------
   // PLAYER_LAND_OPENS
-  // const trietPlayerBenThanhLand = await db.PlayerLandOpen.create({
-  //   playerMapOpenId: trietPlayerMapSaigon.id,
-  //   playerId: trietAccount.id,
-  //   landId: benthanhLand.id,
-  // });
+  const trietPlayerBenThanhLand = await db.PlayerObjectOpen.create({
+    parentId: trietPlayerMapSaigon.id,
+    playerId: trietAccount.id,
+    objectId: benthanhLand.id,
+  });
+  const BenThanhLandUpdateIsPass = await trietPlayerBenThanhLand.update({
+    isPassed: true,
+    score: 10,
+  });
+  await BenThanhLandUpdateIsPass.save();
+  
 
-  // const trietPlayerDinhDoclapLand = await db.PlayerLandOpen.create({
-  //   playerMapOpenId: trietPlayerMapSaigon.id,
-  //   playerId: trietAccount.id,
-  //   landId: dinhdoclapLand.id,
-  // });
+  const trietPlayerDinhDoclapLand = await db.PlayerObjectOpen.create({
+    parentId: trietPlayerMapSaigon.id,
+    playerId: trietAccount.id,
+    objectId: dinhdoclapLand.id,
+  });
 
-  // const phatPlayerBenThanhLand = await db.PlayerLandOpen.create({
-  //   playerMapOpenId: phatPlayerMapSaiGon.id,
-  //   playerId: phatAccount.id,
-  //   landId: benthanhLand.id,
-  // })
+  const DinhDoclapLandupdateIsPass = await trietPlayerDinhDoclapLand.update({
+    isPassed: true,
+    score: 100,
+  });
+  await DinhDoclapLandupdateIsPass.save();
+
+  const phatPlayerBenThanhLand = await db.PlayerObjectOpen.create({
+    parentId: phatPlayerMapSaiGon.id,
+    playerId: phatAccount.id,
+    objectId: benthanhLand.id,
+  })
   
   // ---------------------------------------------------------
   // ASSET & OBJECT_ASSETS
