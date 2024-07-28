@@ -30,19 +30,8 @@ const createDBAssociation = (db) => {
     // [1] location -- [1] object
     create_1_1_association(db.Object, db.Location, 'id');
     
-    // [N] player - [N] map 
-    create_N_N_association(db.Player, db.Map, db.PlayerMapOpen);
-    
     // [N] object -- [N] asset --> object_assets(assetId, objectId)
     create_N_N_association(db.Object, db.Asset, db.ObjectAssets);
-    
-    
-    // [N] player - [N] land 
-    create_N_N_association(db.Player, db.Land, db.PlayerLandOpen);
-    
-    // [1] player_map_open - [N] player_land_open
-    create_1_N_association(db.PlayerMapOpen, db.PlayerLandOpen, 'playerMapOpenId');
-    create_N_N_association(db.PlayerLandOpen, db.Checkpoint, db.PlayerLandCheckpoint);
 
     create_1_N_association(db.GameType, db.Game, 'gameTypeId');
     create_1_N_association(db.Checkpoint, db.Game, 'checkpointId');
