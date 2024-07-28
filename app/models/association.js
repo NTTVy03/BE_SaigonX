@@ -3,6 +3,14 @@ const { create_N_N_association, create_1_N_association, create_1_1_association }
 
 // ----------------- Association . association
 const createDBAssociation = (db) => {
+    // new Object associations - 29/7/2024
+    create_1_1_association(db.Object, db.Object, 'parentId');
+    create_1_1_association(db.Object, db.Location, 'id');
+    
+    // new PlayerObjectOpen associations - 29/7/2024
+    create_1_1_association(db.PlayerObjectOpen, db.PlayerObjectOpen, 'parentId');
+    create_N_N_association(db.Player, db.Object, db.PlayerObjectOpen);
+
     // [1] user_account -- [1] user_info
     create_1_1_association(db.UserAccount, db.UserInfo, 'id');
     
