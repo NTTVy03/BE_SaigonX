@@ -14,10 +14,6 @@ const createModel = (sequelize, Sequelize) => {
           key: 'id'
         }
       }, 
-      num_land: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-      },
     },
   );
   

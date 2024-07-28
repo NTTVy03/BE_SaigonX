@@ -12,16 +12,6 @@ const createModel = (sequelize, Sequelize) => {
           key: 'id'
         }
     },
-    // code: {
-    //     // ~ name
-    //     type: Sequelize.STRING,
-    //     allowNull: false,
-    //     unique: true,
-    // },
-    // isActive: {
-    //     type: Sequelize.BOOLEAN,
-    //     defaultValue: false,
-    // },
   });
   
   return Game;
