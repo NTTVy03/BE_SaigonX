@@ -19,7 +19,7 @@ async function initialSampleData() {
   
   const trietInfo = await db.UserInfo.create({
     id: trietAccount.id,
-    avatar: 'https://images.pexels.com/photos/25288209/pexels-photo-25288209/free-photo-of-a-building-with-two-windows-and-a-blue-sky.jpeg'
+    avatar: 'avatar/MaleAvatar'
   });
 
   const trietRole1 = await db.Role.create({
@@ -47,7 +47,7 @@ async function initialSampleData() {
 
   const phatInfo = await db.UserInfo.create({
     id: phatAccount.id,
-    avatar: 'https://images.pexels.com/photos/25288209/pexels-photo-25288209/free-photo-of-a-building-with-two-windows-and-a-blue-sky.jpeg'
+    avatar: 'avatar/FemaleAvatar'
   });
 
   const phatRole = await db.Role.create({
