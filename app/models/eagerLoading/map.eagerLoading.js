@@ -19,6 +19,7 @@ const map_object_all = {
 const map_object_active_location_assets = {
     model: db.Map,
     include: objectEagerLoading.object_active_location_assets,
+    required: true,
 }
 
 const map_object_all_location_assets = {
@@ -31,7 +32,8 @@ const map_object_active_location_assets_and_land_detail = {
     include: [
         objectEagerLoading.object_active_location_assets.include,
         landEagerLoading.land_object_active_location_assets,
-    ]
+    ],
+    required: true,
 }
 
 const map_object_all_location_assets_land_detail = {
