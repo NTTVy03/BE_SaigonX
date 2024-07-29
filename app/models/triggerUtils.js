@@ -5,8 +5,6 @@ const initialUtilsWithdb = (db) => {
       include: { model: db.Reward },
     });
 
-    console.log('objectRewards:', objectRewards);
-
     let scoreFromRewards = 0;
 
     for (const objectReward of objectRewards) {

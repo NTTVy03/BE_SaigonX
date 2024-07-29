@@ -2,7 +2,7 @@ const { ObjectType } = require("../type/enum/ObjectType");
 
 const createDBTrigger = (db) => {
     const { createMap, createLand, createCheckpoint, createGame } = db.createUtils;
-    db.Object.addHook('afterCreate',  async (object, options) => {
+    db.Object.addHook('afterCreate', 'createChildData',  async (object, options) => {
       const createChildObject = async () => {
         const type = object.dataValues['type'];
       
@@ -29,14 +29,14 @@ const createDBTrigger = (db) => {
       await createChildObject();
     });
 
-    db.Object.addHook('afterCreate',  async (object, options) => {
+    db.Object.addHook('afterCreate',  'increaseNumChild', async (object, options) => {
       const addNumChild = async() => {
         const parentId = object.dataValues['parentId'];
         if(!parentId) return;
 
         const parentObject = await db.Object.findByPk(parentId);
         if (parentObject) {
-          parentObject.increment('numChild');
+          await parentObject.increment('numChild');
         }
       }
 
@@ -45,9 +45,27 @@ const createDBTrigger = (db) => {
   
   // Trigger: PlayerObjectOpen.isPass (false --> true)
   db.PlayerObjectOpen.addHook(
-    "afterCreate",
+    "afterSave",
+    'isPassedChange',
     async (playerObjectOpen, options) => {
       const { cal_score_from_rewards } = db.triggerUtils;
+
+      const getReward = () => {
+
+      }
+      const updateScore = async () => {
+        const rewardScore = await cal_score_from_rewards(playerObjectOpen.objectId);
+        const newScore = playerObjectOpen.score + rewardScore;
+        playerObjectOpen.score = newScore;
+      }
+      const updateParentProcess = async () => {
+        if(!playerObjectOpen.parentId) return;
+        const parent = await db.PlayerObjectOpen.findByPk( playerObjectOpen.parentId );
+
+        if(!parent) return;
+        parent.update({ process: parent.process + 1 });
+        console.log('\t parent process change:', parent.id, ' ', parent.process + 1);
+      }
       // check if isPassed changed from false to true
       if (playerObjectOpen.changed("isPassed")) {
         const previousValue = playerObjectOpen._previousDataValues.isPassed;
@@ -55,40 +73,12 @@ const createDBTrigger = (db) => {
 
         if (previousValue === false && currentValue === true) {
           // console.log("\t isPassed changed from false to true");
-          console.log("playerObjectOpen change isPassed: ", playerObjectOpen);
+          console.log(`IsPassed: `, playerObjectOpen.id);
 
           try {
-            // receive rewards - @TODO: Dummy implementation
-
-            // calculate score
-            const newScore =
-              playerObjectOpen.score +
-              await cal_score_from_rewards(playerObjectOpen.objectId) + 1;
-
-            console.log("newScore: ", newScore);
-            // update PlayerObjectOpen.score
-            playerObjectOpen.score = newScore;
-            // playerObjectOpen.setScore(newScore);
-            await playerObjectOpen.save(); // Await save operation
-
-            // increase parent (Player_Object_Open) process
-            if(!playerObjectOpen.parentId) return;
-            const parent = await db.PlayerObjectOpen.findByPk(
-              playerObjectOpen.parentId
-            );
-
-            if(!parent) return;
-            await parent.increment("process");
-
-            // change parent isPass if parent process equals parent numChild
-            const parentProcess = parent.process;
-            const parentNumChild = (await db.Object.findByPk(parent.objectId))
-              .numChild;
-
-            if (parentNumChild > 0 && parentProcess === parentNumChild) {
-              parent.isPassed = true;
-              await parent.save(); // Await save operation
-            }
+            getReward();
+            await updateScore();      
+            await updateParentProcess();              
           } catch (error) {
             console.error("Error in afterUpdate hook:", error);
             // Handle the error as needed, for example by throwing an error:
@@ -105,12 +95,13 @@ const createDBTrigger = (db) => {
 
   // Trigger: update Player.score when PlayerObjectOpen.score update
   db.PlayerObjectOpen.addHook(
-    "afterUpdate",
+    "afterSave",
+    'scoreChange',
     async (playerObjectOpen, options) => {
       if (playerObjectOpen.changed("score")) {
-        console.log("PlayerObjectOpen score changed: ", playerObjectOpen);
-        const previousValue = playerObjectOpen._previousDataValues.score;
+        const previousValue = playerObjectOpen._previousDataValues.score || 0;
         const currentValue = playerObjectOpen.score;
+        console.log(`Score: ${playerObjectOpen.id} ${previousValue} -> ${currentValue}`);
 
         if (previousValue !== currentValue) {
           const delta = currentValue - previousValue;
@@ -121,12 +112,35 @@ const createDBTrigger = (db) => {
             if (player) {
               player.score += delta;
               await player.save(); // Await save operation
+              console.log("\t", player.id, ' ', player.score);
             } else {
               console.error(`Player with ID ${playerId} not found.`);
             }
           } catch (error) {
             console.error("Error updating player score:", error);
           }
+        }
+      }
+    }
+  );
+
+  db.PlayerObjectOpen.addHook(
+    "afterSave", 
+    'processChange',
+    async (playerObjectOpen, options) => {
+      if (playerObjectOpen.changed("process")) {
+        const currentValue = playerObjectOpen.process;
+        // console.log(`Process ${playerObjectOpen.id}: ${currentValue}`);
+
+        try{
+          const object = await db.Object.findByPk(playerObjectOpen.objectId);
+          if(object.numChild == currentValue && playerObjectOpen.isPassed == false){
+            playerObjectOpen.isPassed = true;
+            await playerObjectOpen.update({ isPassed: true });
+            console.log(`\t ${playerObjectOpen.id} isPassed: ${playerObjectOpen.isPassed}`);
+          }
+        }catch(error){
+          console.error("Error updating player process:", error);
         }
       }
     }
