@@ -18,7 +18,7 @@ Content-Type: application/json
 
 {
     "username": "TrietHuynh",
-    "password": "$2a$10$Gn9AJsOfKOKDldFAeAkW1ew4Wp8DpX.6SG4btO3W4vWT8Q2Q3r3JC"
+    "password": "c+qOaBlxvL59hjs92YClUH1/Lpmfi7q5U/QFByPX326dJbAfT/3Ee25x0n4/rbwj4ADibI8zH66ObZfHzOJdgQ=="
 }
 ### Token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNjYzNzY2LCJleHAiOjE3MjE3NTAxNjZ9.aDKCtUMSf4kL4sM9h1P_jYWVCjtgO6HXzSYaTPsqNvU
 ### Get User Infor
