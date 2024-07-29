@@ -1,6 +1,7 @@
 const db = require('../../models');
 
 const { mapEagerLoading } = require('../../models/eagerLoading');
+
 const getUserMapsOpen = async (userId) => {
     let maps = await db.PlayerMapOpen.findAll({
         where: {
