@@ -3,10 +3,10 @@ const _ = require("lodash");
 
 const getAllPlayersScore = async () => {
   console.log("# Get all players' score");
-  // id, username (user_account), avatar (user_infos), score (players)
+  // id, fullName (user_account), avatar (user_infos), score (players)
   // sort score (top to down)
   let players = await db.UserAccount.findAll({
-    attributes: ["id", "username"],
+    attributes: ["id", "fullName"],
     include: [
       { model: db.Player, attributes: ["score"] },
       { model: db.UserInfo, attributes: ["avatar"] },
