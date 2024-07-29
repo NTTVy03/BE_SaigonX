@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserAccount = require('../models').UserAccount;
+const { UserUsecase } = require('../usecase/user');
 
 require('dotenv').config();
 const SECRET_KEY = process.env.JWT_SECRET;
@@ -51,10 +52,17 @@ exports.login = async (req, res) => {
     if (!user || !(password === user.password)) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
+
+
     const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '24h' });
+    const userDetail = await UserUsecase.getUserInfo(user.id);
+
     res.json({ 
       message: 'Login successful',
-      accessToken
+      data: {
+        accessToken,
+        user: userDetail
+      }
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
