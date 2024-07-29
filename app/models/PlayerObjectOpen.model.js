@@ -12,6 +12,16 @@ const createModel = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    playerId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
+    objectId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
     // parentId: parent of this PlayerObjectOpen (eg: player_map_open is parent of player_land_open)
     parentId: {
       type: Sequelize.INTEGER,
