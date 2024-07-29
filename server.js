@@ -45,6 +45,9 @@ app.use("/api/map", mapRouter);
 const landRouter = require("./app/routes/land.route"); // /api/land
 app.use("/api/land", landRouter);
 
+const leaderboardRouter = require("./app/routes/leaderboard.route"); // /api/leaderboard
+app.use("/api/leaderboard", leaderboardRouter);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
