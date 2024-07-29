@@ -254,11 +254,11 @@ async function initialSampleData() {
     playerId: trietAccount.id,
     objectId: benthanhLand.id,
   });
-  const BenThanhLandUpdateIsPass = await trietPlayerBenThanhLand.update({
-    isPassed: true,
-    score: 10,
-  });
-  await BenThanhLandUpdateIsPass.save();
+  // const BenThanhLandUpdateIsPass = await trietPlayerBenThanhLand.update({
+  //   isPassed: true,
+  //   score: 10,
+  // });
+  // await BenThanhLandUpdateIsPass.save();
   
 
   const trietPlayerDinhDoclapLand = await db.PlayerObjectOpen.create({
@@ -267,11 +267,11 @@ async function initialSampleData() {
     objectId: dinhdoclapLand.id,
   });
 
-  const DinhDoclapLandupdateIsPass = await trietPlayerDinhDoclapLand.update({
-    isPassed: true,
-    score: 100,
-  });
-  await DinhDoclapLandupdateIsPass.save();
+  // const DinhDoclapLandupdateIsPass = await trietPlayerDinhDoclapLand.update({
+  //   isPassed: true,
+  //   score: 100,
+  // });
+  // await DinhDoclapLandupdateIsPass.save();
 
   const phatPlayerBenThanhLand = await db.PlayerObjectOpen.create({
     parentId: phatPlayerMapSaiGon.id,
@@ -443,43 +443,49 @@ async function initialSampleData() {
   // PLAYER LAND CHECKPOINTS
 
   // Triet passed checkpoint 1 of benthanh Land
-  // const triet_benthanhCheckpoint1 = await db.PlayerLandCheckpoint.create({
-  //   score: 100,
-  //   playerLandOpenId: trietPlayerBenThanhLand.id,
-  //   checkpointId: benthanhCheckpoint1.id,
-  // })
+  const triet_benthanhCheckpoint1 = await db.PlayerObjectOpen.create({
+    score: 100,
+    parentId: trietPlayerBenThanhLand.id,
+    objectId: benthanhCheckpoint1.id,
+    playerId: trietAccount.id,
+  })
 
   // // Triet pass dinhdoclap Land
-  // const triet_dinhdoclapCheckpoint1 = await db.PlayerLandCheckpoint.create({
-  //   score: 80,
-  //   playerLandOpenId: trietPlayerDinhDoclapLand.id,
-  //   checkpointId: dinhdoclapCheckpoint1.id,
-  // })
+  const triet_dinhdoclapCheckpoint1 = await db.PlayerObjectOpen.create({
+    score: 80,
+    parentId: trietPlayerDinhDoclapLand.id,
+    objectId: dinhdoclapCheckpoint1.id,
+    playerId: trietAccount.id,
+  })
 
-  // const triet_dinhdoclapCheckpoint2 = await db.PlayerLandCheckpoint.create({
-  //   score: 100,
-  //   playerLandOpenId: trietPlayerDinhDoclapLand.id,
-  //   checkpointId: dinhdoclapCheckpoint2.id,
-  // })
+  const triet_dinhdoclapCheckpoint2 = await db.PlayerObjectOpen.create({
+    score: 100,
+    parentId: trietPlayerDinhDoclapLand.id,
+    objectId: dinhdoclapCheckpoint2.id,
+    playerId: trietAccount.id,
+  })
 
-  // const triet_dinhdoclapCheckpoint3 = await db.PlayerLandCheckpoint.create({
-  //   score: 50,
-  //   playerLandOpenId: trietPlayerDinhDoclapLand.id,
-  //   checkpointId: dinhdoclapCheckpoint3.id,
-  // })
+  const triet_dinhdoclapCheckpoint3 = await db.PlayerObjectOpen.create({
+    score: 50,
+    parentId: trietPlayerDinhDoclapLand.id,
+    objectId: dinhdoclapCheckpoint3.id,
+    playerId: trietAccount.id,
+  })
 
   // // Phat pass benthanh Land
-  // const phat_benthanhCheckpoint1 = await db.PlayerLandCheckpoint.create({
-  //   score: 101,
-  //   playerLandOpenId: phatPlayerBenThanhLand.id,
-  //   checkpointId: benthanhCheckpoint1.id,
-  // })
+  const phat_benthanhCheckpoint1 = await db.PlayerObjectOpen.create({
+    score: 101,
+    parentId: phatPlayerBenThanhLand.id,
+    objectId: benthanhCheckpoint1.id,
+    playerId: phatAccount.id,
+  })
 
-  // const phat_benthanhCheckpoint2 = await db.PlayerLandCheckpoint.create({
-  //   score: 65,
-  //   playerLandOpenId: phatPlayerBenThanhLand.id,
-  //   checkpointId: benthanhCheckpoint2.id,
-  // })
+  const phat_benthanhCheckpoint2 = await db.PlayerObjectOpen.create({
+    score: 65,
+    parentId: phatPlayerBenThanhLand.id,
+    objectId: benthanhCheckpoint2.id,
+    playerId: phatAccount.id,
+  })
 }
 
 module.exports = initialSampleData;

@@ -54,7 +54,7 @@ const createDBTrigger = (db) => {
         const currentValue = playerObjectOpen.isPassed;
 
         if (previousValue === false && currentValue === true) {
-          console.log("\t isPassed changed from false to true");
+          // console.log("\t isPassed changed from false to true");
           console.log("playerObjectOpen change isPassed: ", playerObjectOpen);
 
           try {
@@ -108,7 +108,7 @@ const createDBTrigger = (db) => {
     "afterUpdate",
     async (playerObjectOpen, options) => {
       if (playerObjectOpen.changed("score")) {
-        console.log("PlayerObjectOpen score changed");
+        console.log("PlayerObjectOpen score changed: ", playerObjectOpen);
         const previousValue = playerObjectOpen._previousDataValues.score;
         const currentValue = playerObjectOpen.score;
 
