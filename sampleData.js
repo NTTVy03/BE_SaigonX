@@ -1,6 +1,5 @@
 const db = require("./app/models");
 const { createGame } = require("./app/utils/CreateData");
-const bcrypt = require('bcryptjs');
 
 
 // ---------------------- SAMPLE DATA
@@ -486,6 +485,10 @@ async function initialSampleData() {
     objectId: benthanhCheckpoint2.id,
     playerId: phatAccount.id,
   })
+
+  /// check trigger isPass (Only for testing)
+  // await trietPlayerBenThanhLand.update({ isPassed: true });
+  // await trietPlayerDinhDoclapLand.update({ isPassed: true });
 }
 
 module.exports = initialSampleData;
