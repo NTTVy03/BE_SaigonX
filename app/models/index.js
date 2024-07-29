@@ -2,17 +2,17 @@ const { Sequelize } = require('sequelize');
 const config = require('../config/database.config.js')['development'];
 require('dotenv').config();
 
-// const sequelize = new Sequelize(config.database, config.username, config.password, {
-//   host: config.host,
-//   dialect: config.dialect,
-//   logging: false,
-// });
-
-const sequelize = new Sequelize(process.env.DB_EXT_URI, {
+const sequelize = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
   dialect: config.dialect,
   logging: false,
 });
+
+// const sequelize = new Sequelize(process.env.DB_EXT_URI, {
+//   host: config.host,
+//   dialect: config.dialect,
+//   logging: false,
+// });
 
 const db = {};
 db.Sequelize = Sequelize;
@@ -43,6 +43,9 @@ db.PlayerObjectOpen     = require('./PlayerObjectOpen.model.js').createModel(seq
 // ----------------- Association
 
 require('./association.js')(db);
+
+db.createUtils =  require('./createUtils.js').initialUtilsWithdb(db);
+db.triggerUtils = require('./triggerUtils.js').initialUtilsWithdb(db);
 
 // --------------------- TRIGGER
 

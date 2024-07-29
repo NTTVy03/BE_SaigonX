@@ -10,10 +10,10 @@ async function createGame(
         type: 'game',
         code,
         isActive,
+        parentId: checkpointId,
     }, {
         gameTypeId,
-        checkpointId,
-    })
+    });
 }
 
 module.exports = {
