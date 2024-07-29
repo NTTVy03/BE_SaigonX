@@ -1,7 +1,6 @@
 const db = require('../../models');
 
-const MapUsecase = require('../map.usecase');
-
+const { mapEagerLoading } = require('../../models/eagerLoading');
 const getUserMapsOpen = async (userId) => {
     let maps = await db.PlayerMapOpen.findAll({
         where: {
@@ -10,7 +9,7 @@ const getUserMapsOpen = async (userId) => {
         include: [
           { model: db.Player, },
 
-          MapUsecase.mapEagerLoading.map_object_active_location_assets,
+          mapEagerLoading.map_object_active_location_assets,
         ]
     });
 
