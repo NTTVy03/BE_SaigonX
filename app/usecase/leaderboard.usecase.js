@@ -15,7 +15,7 @@ const getAllPlayersScore = async () => {
 
   let simplifiedPlayers = players.map((player) => ({
     id: player.id,
-    username: player.username,
+    fullName: player.fullName,
     score: player.player.score,
     avatar: player.user_info.avatar,
   }));
