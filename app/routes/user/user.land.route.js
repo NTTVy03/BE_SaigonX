@@ -1,14 +1,13 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
+const UserCheckpointRoute = require('./user.checkpoint.route');
 const { UserLandController } = require('../../controllers/user') 
 const { isOpenLand } = require('../../middleware/land.middleware');
 
-router.get('/', (req, res) => {
-    res.json({ message: 'User Land Route' });
-});
-router.get("/:landId"  , isOpenLand, UserLandController.getLandActiveDetailById);
-
+router.get('/', UserLandController.getAllUserLandsOpen);
+router.get("/:landId"  , isOpenLand, UserLandController.getUserLandOpen);
+router.use("/:landId/checkpoint"  , isOpenLand, UserCheckpointRoute);
 
 
 module.exports = router;

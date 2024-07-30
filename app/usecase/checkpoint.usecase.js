@@ -1,44 +1,51 @@
+const { where } = require('sequelize');
 const db = require('../models');
 const _ = require('lodash');
-const { checkpointEagerLoading } = require('../models/eagerLoading');
-const { isAccessLand, isOpenLand } = require('./land.usecase');
+const { ObjectType } = require('../type/enum/ObjectType');
 
-const isCheckpointActive = async (checkpointId) => {
-    let checkpoint = await db.Checkpoint.findByPk(checkpointId, {
-        include: checkpointEagerLoading.checkpoint_object_active.include,
+const getAllUserCheckpointsOpen = async (playerId, landId) => {
+    const checkpoints = await db.PlayerObjectOpen.findAll({
+        where: { playerId },
+        include: [
+            {
+                model: db.Object,
+                where: { type: ObjectType.CHECKPOINT, parentId: landId },
+                required: true,
+                include: [
+                    { model: db.Location },
+                    { model: db.Asset },
+                    { model: db.Checkpoint },
+                ]
+            }
+        ]
+    });
+
+    return checkpoints;
+}
+
+const getUserCheckpointOpen = async (playerId, checkpointId) => {
+    const checkpoint = await db.PlayerObjectOpen.findOne({
+        where: { playerId, objectId: checkpointId },
+        include: [
+            {
+                model: db.Object,
+                where: { type: ObjectType.CHECKPOINT },
+                required: true,
+                include: [
+                    { model: db.Location },
+                    { model: db.Asset },
+                    { model: db.Checkpoint },
+                ]
+            }
+        ]
     });
 
     return checkpoint;
 }
 
-const isOpenCheckpoint = async (userId, checkpointId) => {
-    let checkpoint = await db.Checkpoint.findByPk(checkpointId);
-
-    let isLandAccess = isAccessLand(userId, checkpoint.landId);
-    if(!isLandAccess) { return false; }
-
-    let playerLandCheckpoint = await isLandAccess.getPlayerLandCheckpoint();
-    return playerLandCheckpoint;
-}   
-
-const isAccessCheckpoint = async (userId, checkpointId) => {
-    console.log('>>> isAccessCheckpoint <<<');
-
-    let checkpoint = await isCheckpointActive(checkpointId);
-    if(!checkpoint) { return null; }
-
-    console.log('\t>>> checkpoint is Active <<<');
-
-    let landId = checkpoint.landId;
-    let isLandOpen = await isOpenLand(userId, landId);
-
-    if(!isLandOpen) { return null; }
-    console.log('\t>>> isOpenLand <<<');
-    return isLandOpen;
-}
-
 const CheckpointUsecase = {
-    isAccessCheckpoint
+    getAllUserCheckpointsOpen,
+    getUserCheckpointOpen
 };
 
 module.exports = CheckpointUsecase;

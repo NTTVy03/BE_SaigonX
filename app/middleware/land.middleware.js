@@ -4,9 +4,9 @@ const isOpenLand = async (req, res, next) => {
     let userId = req.userId
     let landId = req.params.landId
     try{
-        let playerLandOpen = await LandUsecase.isOpenLand(userId, landId)
+        let playerLandOpen = await LandUsecase.getUserLandOpen(userId, landId)
         if(playerLandOpen === null){
-            res.status(404).json({message: 'Land not found'});
+            res.status(404).json({message: 'Land is not open by user'});
             return;
         }
         req.playerLandOpen = playerLandOpen

@@ -1,54 +1,47 @@
 const db = require('../models');
 const _ = require('lodash');
-const { isAccessMap, isOpenMap } = require('./map.usecase');
-const { landEagerLoading, checkpointEagerLoading } = require('../models/eagerLoading');
+const { ObjectType } = require('../type/enum/ObjectType');
 
-const isLandActive = async (landId) => {
-    let land = await db.Land.findByPk(landId, {
-        include: landEagerLoading.land_object_active.include
+const getAllUserLandsOpen = async(playerId, mapId) => {
+   let lands = await db.PlayerObjectOpen.findAll({
+    where: { playerId },
+    include: {
+        model: db.Object, 
+        where: { type: ObjectType.LAND },
+        parentId: mapId,
+        required: true,
+        include: [
+            {model: db.Land,}   ,
+            {model: db.Location},
+            {model: db.Asset},
+        ]
+    }
+   });
+
+   return lands;
+}
+
+const getUserLandOpen =  async(playerId, landId) => {
+    let land = await db.PlayerObjectOpen.findOne({
+        where: { playerId, objectId: landId },
+        include: {
+            model: db.Object,
+            where: { type: ObjectType.LAND },
+            required: true,
+            include: [
+                {model: db.Land},
+                {model: db.Location},
+                {model: db.Asset},
+            ]
+        }
     });
 
     return land;
 }
 
-const isOpenLand = async (userId, landId) => {
-    let land = await isLandActive(landId);
-    if(!land) { return null; }
-
-    let isMapOpen = await isOpenMap(userId, land.mapId);
-    if(!isMapOpen) { return null; }
-
-    let playerMapOpenId = isMapOpen.id;
-    let playerLandOpen = await db.PlayerLandOpen.findOne({
-        where: { landId, playerMapOpenId }
-    });
-
-    return playerLandOpen;
-}
-
-const isAccessLand = async (userId, landId) => {
-    let land = await isOpenLand(userId, landId);
-    if(!land) { return null; }
-    let mapId = land.mapId;
-
-    return isOpenMap(userId, mapId);
-}
-
-const getDetailActiveLandById = async (landId) => {
-    let landActiveDetail = await db.Land.findByPk(landId, {
-        include: [
-            landEagerLoading.land_object_active_location_assets.include,
-            checkpointEagerLoading.checkpoint_object_active_location_assets
-        ]
-    });
-
-    return landActiveDetail;
-}
 const LandUsecase = {
-    getDetailActiveLandById,
-    isAccessLand,
-    isLandActive,
-    isOpenLand,
+    getUserLandOpen,
+    getAllUserLandsOpen
 };
 
 module.exports = LandUsecase;

@@ -1,31 +1,28 @@
 const { landEagerLoading } = require('../../models/eagerLoading');
-const { UserLandUsecase } = require('../../usecase');
+const { LandUsecase } = require('../../usecase');
 
 
-const getLandActiveDetailById = async (req, res) => {   
-    let landId = req.params.landId;
-    let playerLandOpen = req.playerLandOpen;
+const getAllUserLandsOpen = async (req, res) => {
+    console.log('/user/map/:mapId/land');
+    const userId = req.userId;
+    const mapId = req.params.mapId;
+    console.log({userId, mapId});
     try{
-        let land = await playerLandOpen.getLand({
-            include: landEagerLoading.land_object_active_location_assets_and_checkpoint.include
-        });
-
-        if(land === null){
-            res.status(404).json({message: 'Land not found'});
-            return;
-        }
-
-        playerLandOpen.dataValues.land = land;
-        res.status(200).json(playerLandOpen);
-        return;
+        const lands = await LandUsecase.getAllUserLandsOpen(userId, mapId);
+        res.status(200).json({data: lands});
     }catch(err){
-        console.log('Error: ', err);
+        console.error(err);
         res.status(500).json({message: err.message});
-        return;
     }
 }
+const getUserLandOpen = async (req, res) => { 
+    console.log('/user/map/:mapId/land/:landId');  
+    const playerLandOpen = req.playerLandOpen;
+    res.status(200).json({data: playerLandOpen});
+}
 const UserLandController = {
-    getLandActiveDetailById
+    getUserLandOpen,
+    getAllUserLandsOpen
 }
 
 module.exports = UserLandController;

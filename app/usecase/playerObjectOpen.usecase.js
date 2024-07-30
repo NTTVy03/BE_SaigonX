@@ -1,18 +1,16 @@
 const db = require('../models');
-const { ObjectType, ObjectTypeManager } = require('../type/enum/ObjectType');
-const { objectEagerLoading } = require('../models/eagerLoading');
 
-const getPlayerMapOpen = async (playerId) => {
-    return await db.PlayerObjectOpen.findAll({
+const getPlayerObjectOpen = async (userId, objectId) => {
+    return await db.PlayerObjectOpen.findOne({
         where: {
-            playerId,
+            playerId: userId,
+            objectId,
         },
-        include: objectEagerLoading.object_map_active_location_assets
     });
 }
 
 const PlayerObjectOpenUsecase = {
-    getPlayerMapOpen,
+    getPlayerObjectOpen,
 };
 
 module.exports = PlayerObjectOpenUsecase;

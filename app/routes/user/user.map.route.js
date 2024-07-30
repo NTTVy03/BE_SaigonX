@@ -3,15 +3,12 @@ const router = express.Router();
 
 const UserLandRoute = require('./user.land.route')
 
-const { isOpenMap, isActiveMap } = require('../../middleware/map.middleware');
+const { isOpenMap, getMapObject, isActiveMap } = require('../../middleware/map.middleware');
 const {  UserMapController } = require('../../controllers/user');
 
-router.get("/"   ,   UserMapController.getUserMapsOpen);
-router.get("/:mapId", isOpenMap, UserMapController.getUserMapDetail);
-// router.post('/:mapId', authenticateJWT, UserMapController.postPlayerOpenMap);
-
-
-router.use("/:mapId/land", isOpenMap, UserLandRoute);
+router.get("/"   ,   UserMapController.getAllUserMapsOpen);
+router.get("/:mapId", getMapObject, isActiveMap, isOpenMap, UserMapController.getUserMapDetail);
+router.use("/:mapId/land", getMapObject, isActiveMap, isOpenMap, UserLandRoute);
 
 
 module.exports = router;

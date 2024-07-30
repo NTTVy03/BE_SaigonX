@@ -1,28 +1,32 @@
 const db = require('../models');
+const { ObjectType } = require('../type/enum/ObjectType');
+const { UserMapUsecase, MapUsecase, ObjectUsecase } = require('../usecase');
 
-const { Roles } = require('../type/enum/Role');
-const MapUsecase = require('../usecase/map.usecase');
+const getMapObject = async (req, res, next) => {
+    const mapId = req.params.mapId;
+
+    const map = await ObjectUsecase.getObjectDetail(mapId);
+
+    if(!map || map.type != ObjectType.MAP) {
+      res.status(404).send({ message: 'Map not found' });
+      return;
+    }
+
+    req.map = map;
+    next();
+}
 
 /**
  * Check if map isActive
  */
-const isActiveMap = async (req, res, next) => {
-  // console.log("isAccessMap: userId, mapId --> ", req.userId, req.params.mapId);
-  let userId = req.userId;
-  let mapId = req.params.mapId;
-
-  try{
-    let map = await MapUsecase.isActiveMap(mapId);
-    if(map){
-      req.map = map;
+const isActiveMap = (req, res, next) => {
+    const map = req.map;
+    if(map.isActive) {
       next();
       return;
     }
 
-    res.status(403).send({ message: "You don't have permission to access this map" });
-  } catch(err){
-    res.status(500).send({ message: err.message });
-  }
+    res.status(403).send({ message: 'Map is not active' });
 }
 
 /**
@@ -32,14 +36,10 @@ const isOpenMap = async (req, res, next) => {
   let mapId = req.params.mapId;
   let userId = req.userId;
 
-
-  // check player_map_open
-
   try{
-    let playerMapOpen = await MapUsecase.isOpenMap(userId, mapId);
+    const playerMapOpen = await MapUsecase.getPlayerMapOpen(userId, mapId);
   
     if(playerMapOpen){
-      console.log("playerMapOpen --> ", playerMapOpen.dataValues);
       req.playerMapOpen = playerMapOpen;
       next();
       return;
@@ -53,5 +53,6 @@ const isOpenMap = async (req, res, next) => {
 
 module.exports = {
   isActiveMap,
-  isOpenMap
+  isOpenMap,
+  getMapObject,
 };

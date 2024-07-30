@@ -1,6 +1,7 @@
 const MapUsecase = require('../usecase/map.usecase');
 
 const getAllActiveMaps = async (req, res) => {
+  console.log('GET /api/map');
   try{
     const maps = await MapUsecase.getAllActiveMaps();
     res.status(200).json({data: maps});
@@ -12,6 +13,7 @@ const getAllActiveMaps = async (req, res) => {
 
 const getActiveMapById = async(req, res) => {
   const mapId = req.params.mapId;
+  console.log('GET /api/map/' + mapId);
   try{
     const map = await MapUsecase.getActiveMapDetailById(mapId);
 
@@ -27,18 +29,7 @@ const getActiveMapById = async(req, res) => {
   }
 }
 
-const getAllMaps = async (req, res) => {
-  try{
-    const maps = await MapUsecase.getAllMaps();
-    res.status(200).json({data: maps});
-  }catch(err){
-    console.error(err);
-    res.status(500).json({message: err.message});
-  }
-}
-
 module.exports = {
   getAllActiveMaps,
-    getActiveMapById,
-    getAllMaps,
+  getActiveMapById,
 };

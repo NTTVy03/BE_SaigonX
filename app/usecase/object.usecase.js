@@ -1,56 +1,73 @@
 const db = require('../models');
 const { ObjectType } = require('../type/enum/ObjectType');
-const CheckpointUsecase = require('./checkpoint.usecase');
-const LandUsecase = require('./land.usecase');
-const MapUsecase = require('./map.usecase');
-const getObjectDetail = async (objectId, objectType) => {
-    const eagerLoading = [object_active_location_assets.include];
 
-    switch (objectType) {
-        case ObjectType.MAP:
-            eagerLoading.push({model: db.Map});
-            break;
-        case ObjectType.LAND:
-            eagerLoading.push({model: db.Land});
-            break;
-        case ObjectType.CHECKPOINT:
-            eagerLoading.push({model: db.Checkpoint});
-            break;
-        case ObjectType.GAME:
-            eagerLoading.push({model: db.Game});
-            break;
-        default: 
-            return null;
-    }
-
-    const object = await db.Object.findOne({
-        where: { id: objectId, },
-        include: eagerLoading,
+const getAllChildrenObject = async (objectParentId, options) => {
+    const objects = await db.Object.findAll({
+        where: { 
+            parentId: objectParentId,
+            isActive: true,
+        },
+        ...options,
     });
 
-    return object;
+    return objects;
 }
 
-const getObjectAccess = async (objectId, objectType, userId) => {
-    console.log('ObjectType: ', objectType);
-    switch (objectType) {
-        case ObjectType.CHECKPOINT:
-            let isAccessCheckpoint = await CheckpointUsecase.isAccessCheckpoint(userId, objectId);
-            return isAccessCheckpoint;
-        case ObjectType.LAND:
-            let isAccessLand = await LandUsecase.isOpenLand(userId, objectId);
-            return isAccessLand;
+const getObjectDetail = async (objectId, options) => {
+   const object = await  db.Object.findByPk(objectId, options);
+   if(!object) throw new Error('Object Not Found');
+
+   switch(object.type) {
         case ObjectType.MAP:
-            let isAccessMap = await MapUsecase.isOpenMap(userId, objectId);
-            return isAccessMap;
-        default:
-            return null;
-    }
+            object[object.type] = await object.getMap();
+            break;
+        case ObjectType.LAND:
+            object[object.type] = await object.getLand();
+            break;
+        case ObjectType.CHECKPOINT: 
+            object[object.type] = await object.getCheckpoint();
+            break;
+        case ObjectType.GAME: 
+            object[object.type] = await object.getGame();
+   }
+
+   return object;
+}
+
+const isActiveObject = async (objectId) => {
+    const object = await db.Object.findByPk(objectId);
+    return object.isActive;
+}
+
+/**
+ * Return PlayerObjectOpen of this object if true
+ */
+const getObjectOpen = async (playerId, objectId) => {
+    return await db.PlayerObjectOpen.find({
+        where: {
+            playerId, 
+            objectId
+        }
+    });
+}
+
+/**
+ * Check if it's parent is open
+ */
+const isAccessObject = async (playerId, objectId) => {
+    let playerObjecOpen = await getObjectOpen(playerId, objectId);
+    if(!playerObjecOpen) return true;  // true
+
+    const object = await getObjectDetail(objectId);
+    return await isOpenObject(playerId, object.parentId);
 }
 
 const ObjectUsecase = {
+    getAllChildrenObject,
     getObjectDetail,
-    getObjectAccess
+    getObjectOpen,
+    isAccessObject,
+    isActiveObject
 };
 
 module.exports = ObjectUsecase;

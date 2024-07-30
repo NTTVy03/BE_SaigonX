@@ -15,12 +15,10 @@ const createModel = (sequelize, Sequelize) => {
     playerId: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      primaryKey: true,
     },
     objectId: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      primaryKey: true,
     },
     // parentId: parent of this PlayerObjectOpen (eg: player_map_open is parent of player_land_open)
     parentId: {
@@ -65,6 +63,14 @@ const createModel = (sequelize, Sequelize) => {
         defaultValue: true,
         allowNull: false
     },
+  },
+  {
+    indexes: [
+      {
+        unique: true,
+        fields: ['playerId', 'objectId']
+      }
+    ]
   });
   
   return PlayerObjectOpen;

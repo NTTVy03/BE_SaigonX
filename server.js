@@ -39,11 +39,14 @@ app.use("/api/auth", authRouter);
 const userRouter = require("./app/routes/user"); // /api/user
 app.use('/api/user', authenticateJWT, userRouter);
 
-const mapRouter = require("./app/routes/map.route"); // /api/map
-app.use("/api/map", mapRouter);
+// const mapRouter = require("./app/routes/map.route"); // /api/map
+// app.use("/api/map", mapRouter);
 
-const landRouter = require("./app/routes/land.route"); // /api/land
-app.use("/api/land", landRouter);
+// const landRouter = require("./app/routes/land.route"); // /api/land
+// app.use("/api/land", landRouter);
+
+const objectRouter = require("./app/routes/object.route"); // /api/object
+app.use("/api/object", objectRouter);
 
 const leaderboardRouter = require("./app/routes/leaderboard.route"); // /api/leaderboard
 app.use("/api/leaderboard", leaderboardRouter);

@@ -30,17 +30,16 @@ GET http://localhost:3000/api/user/player
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
 
 ######## Map
-GET http://localhost:3000/api/map
+GET http://localhost:3000/api/object/map
 
 ###
-GET http://localhost:3000/api/map/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
+GET http://localhost:3000/api/object/1
 
 ###
-GET http://localhost:3000/api/map/1
+GET http://localhost:3000/api/object/1/children
 
 ### 9: no active
-GET http://localhost:3000/api/map/9
+GET http://localhost:3000/api/object/9
 
 
 ########### Land
@@ -53,13 +52,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxN
 
 ###
 GET http://localhost:3000/api/user/map/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxODY4MzEzLCJleHAiOjE3MjE5NTQ3MTN9.9ukToCd1lP9l066L2G-0kIrtVrfpWG3ieolePmmqHCk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMjYxMDY0LCJleHAiOjE3MjIzNDc0NjR9.40eK-5ImSJsTm-7e79dReIKBnX0tSlvA_koGG44_g9g
 
 ######## User Land
+GET http://localhost:3000/api/user/map/1/land
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMjYxMDY0LCJleHAiOjE3MjIzNDc0NjR9.40eK-5ImSJsTm-7e79dReIKBnX0tSlvA_koGG44_g9g
+
+###
 GET http://localhost:3000/api/user/map/1/land/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMDIyNzc2LCJleHAiOjE3MjIxMDkxNzZ9.3CaLwYumDVcwOTDIkx3SNob5cqXfJjs3cRPCJbLZZY0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMjYxMDY0LCJleHAiOjE3MjIzNDc0NjR9.40eK-5ImSJsTm-7e79dReIKBnX0tSlvA_koGG44_g9g
 
+######## User Checkpoint
+GET http://localhost:3000/api/user/map/1/land/2/checkpoint
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMjYxMDY0LCJleHAiOjE3MjIzNDc0NjR9.40eK-5ImSJsTm-7e79dReIKBnX0tSlvA_koGG44_g9g
 
+###
+GET http://localhost:3000/api/user/map/1/land/2/checkpoint/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIyMjYxMDY0LCJleHAiOjE3MjIzNDc0NjR9.40eK-5ImSJsTm-7e79dReIKBnX0tSlvA_koGG44_g9g
 
 
 ########### RESULT
