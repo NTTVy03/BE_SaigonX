@@ -33,19 +33,30 @@ const getObjectDetail = async (objectId, objectType) => {
 
 const getObjectAccess = async (objectId, objectType, userId) => {
     console.log('ObjectType: ', objectType);
-    switch (objectType) {
-        case ObjectType.CHECKPOINT:
-            let isAccessCheckpoint = await CheckpointUsecase.isAccessCheckpoint(userId, objectId);
-            return isAccessCheckpoint;
-        case ObjectType.LAND:
-            let isAccessLand = await LandUsecase.isOpenLand(userId, objectId);
-            return isAccessLand;
-        case ObjectType.MAP:
-            let isAccessMap = await MapUsecase.isOpenMap(userId, objectId);
-            return isAccessMap;
-        default:
-            return null;
-    }
+
+    const existingResult = await db.PlayerObjectOpen.findOne({
+        where: {
+            playerId: userId,
+            objectId: objectId
+        }
+    });
+
+    if (existingResult) return existingResult;
+    return null;
+    
+    // switch (objectType) {
+    //     case ObjectType.CHECKPOINT:
+    //         let isAccessCheckpoint = await CheckpointUsecase.isAccessCheckpoint(userId, objectId);
+    //         return isAccessCheckpoint;
+    //     case ObjectType.LAND:
+    //         let isAccessLand = await LandUsecase.isOpenLand(userId, objectId);
+    //         return isAccessLand;
+    //     case ObjectType.MAP:
+    //         let isAccessMap = await MapUsecase.isOpenMap(userId, objectId);
+    //         return isAccessMap;
+    //     default:
+    //         return null;
+    // }
 }
 
 const ObjectUsecase = {

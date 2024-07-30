@@ -1,20 +1,15 @@
 const db = require('../../models');
-const addUserResult = async (userId, objectId, result) => {
-    const userResult = {
-        playerId: userId,
-        objectId,
-        ...result
-    }
 
-    console.log('>>> result: ', userResult);
-
-    const resultResponse = await db.Result.create(userResult);
-
-    return resultResponse;
+const updateUserResult = async (objectResult, newScore) => {
+    const updateResponse = await objectResult.update({
+        score: newScore,
+        isPassed: true // TODO: only true for Game
+    })
+    return updateResponse;
 }
 
 const UserResultUsecase = {
-    addUserResult
+    updateUserResult
 }
 
 module.exports = UserResultUsecase;

@@ -43,6 +43,29 @@ const createDBTrigger = (db) => {
       await addNumChild();
     });
   
+    db.PlayerObjectOpen.addHook(
+      "afterSave", 
+      'processChange',
+      async (playerObjectOpen, options) => {
+        if (playerObjectOpen.changed("process")) {
+          const currentValue = playerObjectOpen.process;
+          // console.log(`Process ${playerObjectOpen.id}: ${currentValue}`);
+  
+          try{
+            const object = await db.Object.findByPk(playerObjectOpen.objectId);
+            if(object.numChild == currentValue && playerObjectOpen.isPassed == false){
+              playerObjectOpen.isPassed = true;
+              // console.log('playerObjectOpen: ', playerObjectOpen.dataValues);
+              // await playerObjectOpen.update({ isPassed: true });
+              // console.log(`\t ${playerObjectOpen.id} isPassed: ${playerObjectOpen.isPassed}`);
+            }
+          }catch(error){
+            console.error("Error updating player process:", error);
+          }
+        }
+      }
+    );
+
   // Trigger: PlayerObjectOpen.isPass (false --> true)
   db.PlayerObjectOpen.addHook(
     "afterSave",
@@ -57,14 +80,17 @@ const createDBTrigger = (db) => {
         const rewardScore = await cal_score_from_rewards(playerObjectOpen.objectId);
         const newScore = playerObjectOpen.score + rewardScore;
         playerObjectOpen.score = newScore;
+        console.log("\t update score: ", newScore);
       }
       const updateParentProcess = async () => {
         if(!playerObjectOpen.parentId) return;
         const parent = await db.PlayerObjectOpen.findByPk( playerObjectOpen.parentId );
 
         if(!parent) return;
-        parent.update({ process: parent.process + 1 });
+        parent.process = parent.process + 1;
         console.log('\t parent process change:', parent.id, ' ', parent.process + 1);
+        await parent.save();
+        console.log(parent);
       }
       // check if isPassed changed from false to true
       if (playerObjectOpen.changed("isPassed")) {
@@ -102,6 +128,7 @@ const createDBTrigger = (db) => {
         const previousValue = playerObjectOpen._previousDataValues.score || 0;
         const currentValue = playerObjectOpen.score;
         console.log(`Score: ${playerObjectOpen.id} ${previousValue} -> ${currentValue}`);
+        // console.log('playerObjectOpen: ', playerObjectOpen);
 
         if (previousValue !== currentValue) {
           const delta = currentValue - previousValue;
@@ -119,28 +146,6 @@ const createDBTrigger = (db) => {
           } catch (error) {
             console.error("Error updating player score:", error);
           }
-        }
-      }
-    }
-  );
-
-  db.PlayerObjectOpen.addHook(
-    "afterSave", 
-    'processChange',
-    async (playerObjectOpen, options) => {
-      if (playerObjectOpen.changed("process")) {
-        const currentValue = playerObjectOpen.process;
-        // console.log(`Process ${playerObjectOpen.id}: ${currentValue}`);
-
-        try{
-          const object = await db.Object.findByPk(playerObjectOpen.objectId);
-          if(object.numChild == currentValue && playerObjectOpen.isPassed == false){
-            playerObjectOpen.isPassed = true;
-            await playerObjectOpen.update({ isPassed: true });
-            console.log(`\t ${playerObjectOpen.id} isPassed: ${playerObjectOpen.isPassed}`);
-          }
-        }catch(error){
-          console.error("Error updating player process:", error);
         }
       }
     }
